@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://portfolio.hounsoubenny.workers.dev/sitemap-index.xml
+Sitemap: https://myportfolio.hounsoubenny.workers.dev/sitemap-index.xml

@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 // ⚠️ A remplace par mon vrai domaine une fois déployé (Vercel/Render/Cloudflare...).
 // Nécessaire pour que le sitemap et les URLs canoniques/OG soient corrects.
 
-const SITE_URL = 'https://portfolio.hounsoubenny.workers.dev/';
+const SITE_URL = 'https://myportfolio.hounsoubenny.workers.dev/';
 
 export default defineConfig({
   site: SITE_URL,
