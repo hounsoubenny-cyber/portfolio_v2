@@ -1,0 +1,111 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const blogPosts = await getCollection('blog');
+
+// Sort by date descending
+const sortedBlog = blogPosts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Layout 
+  title="Mon Blog" 
+  description="Lisez les articles de blog techniques de Benny Samuel HOUNSOU. Analyses poussées de systèmes RAG hors-ligne, architectures d'apprentissage profond et solutions de cybersécurité natives."
+>
+  <div class="max-w-5xl mx-auto px-6 py-12 md:py-20 flex flex-col gap-12 animate-fadeIn">
+    <!-- Header -->
+    <div class="flex flex-col gap-3">
+      <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary font-bold">
+        <span class="lang-fr">Publications</span>
+        <span class="lang-en">Publications</span>
+      </span>
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-text-main font-heading">
+        <span class="lang-fr">Pensées Techniques & Analyses</span>
+        <span class="lang-en">Technical Thoughts & Analyses</span>
+      </h1>
+      <p class="text-base text-text-sub max-w-xl font-sans">
+        <span class="lang-fr">Chroniques et retours d'expérience sur la cybersécurité, le machine learning pratique et l'optimisation système.</span>
+        <span class="lang-en">Chronicles and feedback on cybersecurity, practical machine learning, and system optimization.</span>
+      </p>
+    </div>
+
+    <hr class="border-border" />
+
+    <!-- Articles List/Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {sortedBlog.map(post => (
+        <article class="group flex flex-col bg-surface border border-border rounded-3xl overflow-hidden shadow-sm card-hover gap-6 justify-between">
+          <div class="relative aspect-[16/9] overflow-hidden border-b border-border">
+            <img
+              src={post.data.image_cover}
+              alt={post.data.title}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+          <div class="px-6 md:px-8">
+            <!-- Article Header Info -->
+            <div class="flex flex-wrap items-center gap-3 font-mono text-[10px] text-text-sub">
+              <span>
+                <span class="lang-fr">
+                  {new Date(post.data.date).toLocaleDateString('fr-FR', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </span>
+                <span class="lang-en">
+                  {new Date(post.data.date).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </span>
+              </span>
+              <span>•</span>
+              <span class="font-bold text-primary bg-primary/5 px-2.5 py-0.5 rounded-full">
+                <span class="lang-fr">{post.data.temps_lecture} MIN DE LECTURE</span>
+                <span class="lang-en">{post.data.temps_lecture} MIN READ</span>
+              </span>
+            </div>
+
+            <!-- Title -->
+            <h2 class="text-xl md:text-2xl font-bold text-text-main mt-4 leading-tight tracking-tight font-heading hover:text-primary transition-colors">
+              <a href={`/blog/${post.id}`}>{post.data.title}</a>
+            </h2>
+
+            <!-- Resume / Summary -->
+            <p class="text-sm text-text-sub mt-3 leading-relaxed font-sans">
+              {post.data.resume}
+            </p>
+          </div>
+
+          <div class="px-6 md:px-8 pb-6 md:pb-8">
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-1.5 border-t border-border pt-4 mt-6">
+              {post.data.tags.map(tag => (
+                <span class="text-[10px] font-mono bg-border/40 text-text-main px-2.5 py-0.5 rounded-md font-medium">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+
+            <!-- Action Button -->
+            <a 
+              href={`/blog/${post.id}`} 
+              class="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary-hover uppercase tracking-wider mt-5 group transition-colors"
+            >
+              <span class="lang-fr">Lire l'article complet</span>
+              <span class="lang-en">Read full article</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</Layout>

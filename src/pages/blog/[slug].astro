@@ -1,0 +1,168 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout 
+  title={post.data.title} 
+  description={post.data.resume}
+>
+  <div class="max-w-4xl mx-auto px-6 py-12 md:py-20 flex flex-col gap-10 animate-fadeIn">
+    <!-- Back Button -->
+    <div>
+      <a 
+        href="/blog" 
+        class="inline-flex items-center gap-2 text-sm font-semibold text-text-sub hover:text-primary group transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" x2="5" y1="12" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span class="lang-fr">Retour aux articles</span>
+        <span class="lang-en">Back to articles</span>
+      </a>
+    </div>
+
+    <!-- Cover Image -->
+    <div class="relative aspect-[21/9] rounded-3xl overflow-hidden border border-border shadow-sm">
+      <img src={post.data.image_cover} alt={post.data.title} class="w-full h-full object-cover" />
+    </div>
+
+    <!-- Article Header Card -->
+    <header class="bg-surface border border-border rounded-3xl p-8 md:p-10 shadow-sm flex flex-col gap-5">
+      <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-text-sub">
+        <span>
+          <span class="lang-fr">
+            {new Date(post.data.date).toLocaleDateString('fr-FR', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </span>
+          <span class="lang-en">
+            {new Date(post.data.date).toLocaleDateString('en-US', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </span>
+        </span>
+        <span>•</span>
+        <span class="font-bold text-primary bg-primary/5 px-2.5 py-0.5 rounded-full">
+          <span class="lang-fr">{post.data.temps_lecture} MIN DE LECTURE</span>
+          <span class="lang-en">{post.data.temps_lecture} MIN READ</span>
+        </span>
+      </div>
+
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-main leading-tight font-heading mt-2">
+        {post.data.title}
+      </h1>
+
+      <p class="text-base md:text-lg text-text-sub italic leading-relaxed font-sans mt-1 max-w-3xl">
+        "{post.data.resume}"
+      </p>
+
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-1.5 border-t border-border pt-4 mt-4">
+        {post.data.tags.map(tag => (
+          <span class="text-xs font-mono bg-border/40 text-text-main px-2.5 py-0.5 rounded-md font-semibold">
+            #{tag}
+          </span>
+        ))}
+      </div>
+    </header>
+
+    <!-- Article Body Content -->
+    <main class="prose dark:prose-invert max-w-none bg-surface border border-border rounded-3xl p-8 md:p-12 shadow-sm">
+      <div class="markdown-body font-sans text-sm md:text-base text-text-sub leading-relaxed flex flex-col gap-6">
+        <Content />
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<style is:global>
+  /* Rich prose/markdown custom settings */
+  .markdown-body h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-main-val);
+    border-bottom: 1px solid var(--color-border-val);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-heading);
+  }
+  .markdown-body h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-main-val);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-heading);
+  }
+  .markdown-body p {
+    margin-bottom: 1rem;
+  }
+  .markdown-body ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .markdown-body ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .markdown-body li {
+    margin-bottom: 0.5rem;
+  }
+  .markdown-body strong {
+    color: var(--color-text-main-val);
+    font-weight: 600;
+  }
+  .markdown-body hr {
+    border: none;
+    border-top: 1px dashed var(--color-border-val);
+    margin: 2rem 0;
+  }
+  .markdown-body code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background-color: var(--color-border-val);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    color: var(--color-text-main-val);
+  }
+  .markdown-body pre {
+    background-color: var(--color-surface-val);
+    border: 1px solid var(--color-border-val);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+  .markdown-body pre code {
+    background-color: transparent;
+    padding: 0;
+    color: inherit;
+    font-size: 0.9em;
+  }
+  .markdown-body img {
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--color-border-val);
+    margin: 1.5rem 0;
+  }
+</style>

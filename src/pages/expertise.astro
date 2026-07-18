@@ -1,0 +1,172 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SKILLS } from '../data.ts';
+---
+
+<Layout 
+  title="Mon Expertise" 
+  description="Découvrez les compétences techniques de Benny Samuel HOUNSOU : Modèles de Deep Learning (PyTorch, TensorFlow), Sécurité Réseau, Développement d'API asynchrones (FastAPI) et architectures Web."
+>
+  <div class="max-w-5xl mx-auto px-6 py-12 md:py-20 flex flex-col gap-16 animate-fadeIn">
+    <!-- Header -->
+    <div class="flex flex-col gap-3">
+      <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary font-mono">
+        <span class="lang-fr">Compétences & Technologies</span>
+        <span class="lang-en">Skills & Technologies</span>
+      </span>
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-text-main font-heading">
+        <span class="lang-fr">Mes Domaines d'Expertise</span>
+        <span class="lang-en">My Fields of Expertise</span>
+      </h1>
+      <p class="text-base text-text-sub max-w-2xl font-sans">
+        <span class="lang-fr">Une maîtrise approfondie de l'apprentissage automatique, de la programmation système et de la conception logicielle. Mes solutions sont pensées pour être autonomes, sécurisées et performantes.</span>
+        <span class="lang-en">An in-depth mastery of machine learning, systems programming, and software design. My solutions are built to be autonomous, secure, and fast.</span>
+      </p>
+    </div>
+
+    <!-- Core Pitch / Overview -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-surface border border-border rounded-3xl p-8 shadow-sm">
+      <div class="flex flex-col gap-2 p-2">
+        <div class="h-10 w-10 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-500 text-lg">🧠</div>
+        <h3 class="text-lg font-bold text-text-main mt-2 font-heading">
+          <span class="lang-fr">IA & Automatisation</span>
+          <span class="lang-en">AI & Automation</span>
+        </h3>
+        <p class="text-xs md:text-sm text-text-sub leading-relaxed font-sans">
+          <span class="lang-fr">Entraînement de classifieurs profonds, architectures Transformer/GPT, et automatisation de processus réels — de l'expérimentation à la production.</span>
+          <span class="lang-en">Training deep classifiers, Transformer/GPT architectures, and automating real-world processes — from experimentation to production.</span>
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-2 p-2 border-y md:border-y-0 md:border-x border-border py-6 md:py-0 md:px-6">
+        <div class="h-10 w-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 text-lg">🔐</div>
+        <h3 class="text-lg font-bold text-text-main mt-2 font-heading">
+          <span class="lang-fr">Cybersécurité Défensive</span>
+          <span class="lang-en">Defensive Cybersecurity</span>
+        </h3>
+        <p class="text-xs md:text-sm text-text-sub leading-relaxed font-sans">
+          <span class="lang-fr">Capture réseau PCAP, détection d'intrusions (IDS/IPS) assistée par IA, analyse d'URLs et durcissement applicatif complet.</span>
+          <span class="lang-en">PCAP network capture, AI-assisted intrusion detection (IDS/IPS), URL analysis, and complete application hardening.</span>
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-2 p-2">
+        <div class="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 text-lg">⚡</div>
+        <h3 class="text-lg font-bold text-text-main mt-2 font-heading">
+          <span class="lang-fr">Architectures Fullstack</span>
+          <span class="lang-en">Fullstack Architectures</span>
+        </h3>
+        <p class="text-xs md:text-sm text-text-sub leading-relaxed font-sans">
+          <span class="lang-fr">APIs asynchrones ultra-rapides sous FastAPI, conception de schémas de données SQL/NoSQL robustes et interfaces utilisateurs dynamiques.</span>
+          <span class="lang-en">High-performance asynchronous APIs using FastAPI, robust SQL/NoSQL data schema design, and dynamic user interfaces.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Detailed Skills Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {SKILLS.map(skillGroup => (
+        <div class="bg-surface border border-border rounded-3xl p-6 md:p-8 flex flex-col justify-between gap-6 shadow-sm card-hover">
+          <!-- Category Header -->
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3">
+              <span class={`h-12 w-12 rounded-2xl ${skillGroup.bgClass} flex items-center justify-center text-xl`}>
+                {skillGroup.icon}
+              </span>
+              <h2 class="text-xl md:text-2xl font-bold text-text-main font-heading">
+                <span class="lang-fr">{skillGroup.category.fr}</span>
+                <span class="lang-en">{skillGroup.category.en}</span>
+              </h2>
+            </div>
+            <p class="text-sm text-text-sub leading-relaxed mt-1 font-sans">
+              <span class="lang-fr">{skillGroup.description.fr}</span>
+              <span class="lang-en">{skillGroup.description.en}</span>
+            </p>
+          </div>
+
+          <!-- Skills Level Rows -->
+          <div class="flex flex-col gap-1 my-2">
+            {skillGroup.list.map(skill => (
+              <div class="flex items-center justify-between py-2.5 border-b border-border/40 last:border-0 group/skill">
+                <span class="font-semibold text-sm text-text-main font-sans group-hover/skill:text-primary transition-colors duration-300">
+                  <span class="lang-fr">{skill.name.fr}</span>
+                  <span class="lang-en">{skill.name.en}</span>
+                </span>
+                <div class="flex items-center gap-3">
+                  <span class="text-[10px] font-mono font-bold text-primary bg-primary/5 dark:bg-primary/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    {skill.level === 'Expert' ? (
+                      <>
+                        <span class="lang-fr">Expert</span>
+                        <span class="lang-en">Expert</span>
+                      </>
+                    ) : skill.level === 'Advanced' ? (
+                      <>
+                        <span class="lang-fr">Avancé</span>
+                        <span class="lang-en">Advanced</span>
+                      </>
+                    ) : (
+                      <>
+                        <span class="lang-fr">Intermédiaire</span>
+                        <span class="lang-en">Intermediate</span>
+                      </>
+                    )}
+                  </span>
+                  
+                  <!-- Bespoke hand-crafted dots to show level without AI percentages -->
+                  <div class="flex items-center gap-1">
+                    {Array.from({ length: 5 }).map((_, i) => {
+                      const filled = i < Math.round(skill.percentage / 20);
+                      return (
+                        <span class={`h-1 w-1 rounded-full transition-all duration-300 ${
+                          filled ? 'bg-primary' : 'bg-border/60'
+                        }`}></span>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Tags Cloud -->
+          <div class="border-t border-border pt-4">
+            <span class="font-mono text-[10px] font-bold text-text-sub uppercase tracking-wider block mb-2">
+              <span class="lang-fr">Technologies clés</span>
+              <span class="lang-en">Key technologies</span>
+            </span>
+            <div class="flex flex-wrap gap-1.5">
+              {skillGroup.tags.map(tag => (
+                <span class="text-xs font-mono bg-border/40 text-text-main px-2.5 py-0.5 rounded-md font-medium">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="border-t border-border pt-12 text-center flex flex-col items-center gap-4">
+      <h3 class="font-heading text-xl font-bold text-text-main">
+        <span class="lang-fr">Envie de voir ces compétences en action ?</span>
+        <span class="lang-en">Want to see these skills in action?</span>
+      </h3>
+      <p class="text-sm text-text-sub max-w-md font-sans">
+        <span class="lang-fr">Consultez mes projets pour voir comment j'intègre ces technologies dans des applications réelles, documentées et ouvertes.</span>
+        <span class="lang-en">Check out my projects to see how I integrate these technologies into real, documented, and open applications.</span>
+      </p>
+      <a 
+        href="/projets" 
+        class="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white hover:bg-primary-hover shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 btn-hover"
+      >
+        <span class="lang-fr">Consulter mes projets</span>
+        <span class="lang-en">View my projects</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" x2="19" y1="12" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </section>
+  </div>
+</Layout>

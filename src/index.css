@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg: var(--color-bg-val);
+  --color-surface: var(--color-surface-val);
+  --color-text-main: var(--color-text-main-val);
+  --color-text-sub: var(--color-text-sub-val);
+  --color-primary: var(--color-primary-val);
+  --color-primary-hover: var(--color-primary-hover-val);
+  --color-accent: var(--color-accent-val);
+  --color-border: var(--color-border-val);
+
+  --font-sans: "Plus Jakarta Sans", "Inter", "Helvetica Neue", sans-serif;
+  --font-heading: "Outfit", "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+:root {
+  --color-bg-val: #FAF9F6; /* Premium Alabaster Off-White */
+  --color-surface-val: #FFFFFF;
+  --color-text-main-val: #0F172A; /* Slate 900 */
+  --color-text-sub-val: #475569; /* Slate 600 */
+  --color-primary-val: #4F46E5; /* Indigo 600 */
+  --color-primary-hover-val: #4338CA;
+  --color-accent-val: #D97706; /* Bronze Amber */
+  --color-border-val: rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="dark"] {
+  --color-bg-val: #060814; /* Deep Royal Obsidian Blue */
+  --color-surface-val: #0F1227; /* Velvet Dark Blue-Indigo Onyx */
+  --color-text-main-val: #FAFAFC; /* Slate 50 */
+  --color-text-sub-val: #94A3B8; /* Slate 400 */
+  --color-primary-val: #6366F1; /* Electric Indigo */
+  --color-primary-hover-val: #818CF8;
+  --color-accent-val: #F59E0B; /* Warm Gold */
+  --color-border-val: rgba(99, 102, 241, 0.12); /* Tone-matched border */
+}
+
+/* Beautiful custom velvet ambient mesh for dark mode background */
+[data-theme="dark"] body {
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 55%),
+    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 55%),
+    radial-gradient(at 50% 50%, rgba(79, 70, 229, 0.05) 0px, transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Scroll Reveal / Lazy-load animation styles */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Language Switcher Display Control */
+html[data-lang="fr"] .lang-en {
+  display: none !important;
+}
+html[data-lang="en"] .lang-fr {
+  display: none !important;
+}
+
+body {
+  background-color: var(--color-bg-val);
+  color: var(--color-text-sub-val);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-text-main-val);
+}
+
+/* Animations & Transitions */
+.card-hover {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+  border-color: var(--color-primary-val);
+}
+
+[data-theme="dark"] .card-hover:hover {
+  box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+.btn-hover {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.2);
+}
+
+[data-theme="dark"] .btn-hover:hover {
+  box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.3);
+}
+
+.btn-hover:active {
+  transform: translateY(0);
+}
+
+/* Form inputs & interactive styles */
+input, textarea, select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-primary-val);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+[data-theme="dark"] input:focus, [data-theme="dark"] textarea:focus, [data-theme="dark"] select:focus {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Custom 3D Flip Styles for Portrait Card */
+.perspective {
+  perspective: 1200px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-val);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-val);
+  border-radius: 9999px;
+  border: 3px solid var(--color-bg-val);
+  transition: background-color 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-val);
+}

@@ -1,0 +1,195 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projets');
+  return projects.map(project => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<Layout 
+  title={project.data.title} 
+  description={project.data.description}
+>
+  <div class="max-w-4xl mx-auto px-6 py-12 md:py-20 flex flex-col gap-10 animate-fadeIn">
+    <!-- Back Button -->
+    <div>
+      <a 
+        href="/projets" 
+        class="inline-flex items-center gap-2 text-sm font-semibold text-text-sub hover:text-primary group transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" x2="5" y1="12" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span class="lang-fr">Retour aux projets</span>
+        <span class="lang-en">Back to projects</span>
+      </a>
+    </div>
+
+    <!-- Cover Image -->
+    <div class="relative aspect-[21/9] rounded-3xl overflow-hidden border border-border shadow-sm">
+      <img src={project.data.image_cover} alt={project.data.title} class="w-full h-full object-cover" />
+    </div>
+
+    <!-- Main Header Card -->
+    <header class="bg-surface border border-border rounded-3xl p-8 md:p-10 shadow-sm flex flex-col gap-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
+        <span class="text-text-sub font-bold">
+          <span class="lang-fr">
+            {new Date(project.data.date_debut).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })} 
+            {project.data.date_fin ? ` - ${new Date(project.data.date_fin).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })}` : " - En cours"}
+          </span>
+          <span class="lang-en">
+            {new Date(project.data.date_debut).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })} 
+            {project.data.date_fin ? ` - ${new Date(project.data.date_fin).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}` : " - In progress"}
+          </span>
+        </span>
+        
+        <span class={`px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wide text-[9px] ${
+          project.data.status === 'terminé' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' :
+          project.data.status === 'en cours' ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400' :
+          'bg-amber-500/10 text-amber-600'
+        }`}>
+          <span class="lang-fr">{project.data.status}</span>
+          <span class="lang-en">{project.data.status === 'terminé' ? 'completed' : project.data.status === 'en cours' ? 'in progress' : 'planned'}</span>
+        </span>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-main leading-tight">
+          {project.data.title}
+        </h1>
+        <p class="text-base md:text-lg text-text-sub leading-relaxed font-sans max-w-2xl mt-1">
+          {project.data.description}
+        </p>
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="flex flex-col gap-2.5 pt-4 border-t border-border">
+        <span class="font-mono text-[10px] font-bold text-text-sub uppercase tracking-wider block">
+          <span class="lang-fr">Stack technologique utilisée</span>
+          <span class="lang-en">Technology stack used</span>
+        </span>
+        <div class="flex flex-wrap gap-1.5">
+          {project.data.stack.map(tech => (
+            <span class="text-xs font-mono bg-border/40 text-text-main px-3 py-1 rounded-lg font-bold">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- External Links -->
+      <div class="flex flex-wrap items-center gap-4 mt-2">
+        {project.data.lien_github && (
+          <a 
+            href={project.data.lien_github} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="flex items-center gap-2 rounded-xl bg-text-main text-surface dark:bg-surface dark:text-text-main border border-border px-5 py-2.5 text-xs font-bold hover:opacity-90 shadow-sm hover:shadow-md hover:scale-105 active:scale-95 transition-all btn-hover"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+              <path d="M9 18c-4.51 2-5-2-7-2"></path>
+            </svg>
+            <span class="lang-fr">Voir le code GitHub</span>
+            <span class="lang-en">View GitHub code</span>
+          </a>
+        )}
+
+        {project.data.lien_demo && (
+          <a 
+            href={project.data.lien_demo} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="flex items-center gap-2 rounded-xl bg-primary text-white px-5 py-2.5 text-xs font-bold hover:bg-primary-hover shadow-sm hover:shadow-md hover:scale-105 active:scale-95 transition-all btn-hover"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" x2="21" y1="14" y2="3"></line>
+            </svg>
+            <span class="lang-fr">Tester la démo</span>
+            <span class="lang-en">Test demo</span>
+          </a>
+        )}
+      </div>
+    </header>
+
+    <!-- Project Body Content -->
+    <main class="prose dark:prose-invert max-w-none bg-surface border border-border rounded-3xl p-8 md:p-12 shadow-sm">
+      <div class="flex items-center gap-3 border-b border-border pb-4 mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="9" y2="9"></line>
+          <line x1="4" x2="20" y1="15" y2="15"></line>
+          <line x1="10" x2="8" y1="3" y2="21"></line>
+          <line x1="16" x2="14" y1="3" y2="21"></line>
+        </svg>
+        <span class="font-mono text-xs font-bold uppercase tracking-wider text-text-main">
+          <span class="lang-fr">Rapport de Conception & Détails</span>
+          <span class="lang-en">Design Report & Details</span>
+        </span>
+      </div>
+
+      <div class="markdown-body font-sans text-sm md:text-base text-text-sub leading-relaxed flex flex-col gap-6">
+        <Content />
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<style is:global>
+  /* Rich prose/markdown custom settings */
+  .markdown-body h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-main-val);
+    border-bottom: 1px solid var(--color-border-val);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-heading);
+  }
+  .markdown-body h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-main-val);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-heading);
+  }
+  .markdown-body p {
+    margin-bottom: 1rem;
+  }
+  .markdown-body ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .markdown-body li {
+    margin-bottom: 0.5rem;
+  }
+  .markdown-body strong {
+    color: var(--color-text-main-val);
+    font-weight: 600;
+  }
+  .markdown-body hr {
+    border: none;
+    border-top: 1px dashed var(--color-border-val);
+    margin: 2rem 0;
+  }
+  .markdown-body img {
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--color-border-val);
+    margin: 1.5rem 0;
+  }
+</style>

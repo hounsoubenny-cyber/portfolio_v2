@@ -1,0 +1,483 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import profileImage from '../assets/images/benny_portrait_acceuil.jpg';
+
+// Fetch collection data at build time
+const allProjects = await getCollection('projets');
+const featuredProjects = allProjects.filter(p => p.data.featured).slice(0, 3);
+// Total real project count, used by the animated counter below.
+// Reflects projects shipped across the full body of work, not just what's featured here.
+const totalProjectsCount = 3;
+
+const allBlog = await getCollection('blog');
+const latestBlog = allBlog
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 2);
+
+// Technical stats
+const stats = [
+  { value: "99.3%", labelFr: "Précision Phishing URL", labelEn: "Phishing URL Accuracy", descFr: "Modèle de stacking entraîné sur 247k entrées", descEn: "Stacking model trained on 247k inputs" },
+  { value: "<100ms", labelFr: "Inspection Réseau IDS", labelEn: "IDS Network Inspection", descFr: "Auto-encodeur LSTM et CNN 1D en direct", descEn: "Live LSTM autoencoder & 1D CNN" },
+  { value: "247K+", labelFr: "URLs Analysées", labelEn: "URLs Analyzed", descFr: "Dataset anti-phishing construit et labellisé", descEn: "Anti-phishing dataset built and labeled" }
+];
+---
+
+<Layout 
+  title="Accueil" 
+  description="Portfolio de Benny Samuel HOUNSOU. Expert en automatisation, développement fullstack, architectures d'IA locales et cybersécurité native."
+>
+  <!-- Hero Section -->
+  <section class="max-w-6xl mx-auto px-6 py-12 md:py-24 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+    <!-- Left Column: Copy & Actions -->
+    <div class="md:col-span-7 flex flex-col gap-6 animate-fadeIn">
+      <div class="inline-flex items-center gap-2">
+        <span class="h-[1px] w-8 bg-primary"></span>
+        <span class="font-mono text-xs font-bold uppercase tracking-wider text-primary">
+          <span class="lang-fr">IA · Automatisation · Systèmes · Cybersécurité</span>
+          <span class="lang-en">AI · Automation · Systems · Cybersecurity</span>
+        </span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-text-main">
+        <span class="lang-fr">Concevoir des systèmes <span class="text-primary font-heading italic">robustes</span>, du plus simple au plus complet.</span>
+        <span class="lang-en">Designing <span class="text-primary font-heading italic">robust</span> systems, from the simplest to the most complete.</span>
+      </h1>
+
+      <p class="text-base md:text-lg text-text-sub leading-relaxed max-w-xl font-sans">
+        <span class="lang-fr">Expert en intelligence artificielle, automatisation et développement de systèmes — de l'application la plus simple à la plateforme la plus complexe. Je conçois des architectures IA sur mesure, des applications fullstack complètes, et des solutions de cybersécurité augmentées par l'IA. Pas de wrapper d'API cloud superficiel — du code performant, compris et maîtrisé de bout en bout.</span>
+        <span class="lang-en">Expert in artificial intelligence, automation, and systems development — from the simplest app to the most complex platform. I design custom AI architectures, complete fullstack applications, and AI-augmented cybersecurity solutions. No superficial cloud API wrappers — just performant code, understood and mastered end to end.</span>
+      </p>
+
+      <!-- CTA Action Group -->
+      <div class="flex flex-wrap items-center gap-4 mt-2">
+        <a 
+          href="/projets" 
+          class="flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white hover:bg-primary-hover shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 btn-hover"
+        >
+          <span class="lang-fr">Consulter les projets</span>
+          <span class="lang-en">View projects</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" x2="19" y1="12" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a 
+          href="/parcours" 
+          class="flex items-center gap-2 rounded-xl border border-border bg-surface px-6 py-3.5 text-sm font-semibold text-text-main hover:bg-border/40 hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm btn-hover"
+        >
+          <span class="lang-fr">Mon parcours</span>
+          <span class="lang-en">My journey</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Column: Interactive Professional Portrait Card -->
+    <div class="md:col-span-5 flex justify-center">
+      <div class="relative w-72 h-96 sm:w-80 sm:h-[420px] perspective group cursor-pointer">
+        <!-- Accent Shadow Glow -->
+        <div class="absolute -inset-4 rounded-[32px] bg-gradient-to-tr from-primary to-accent opacity-10 blur-2xl group-hover:opacity-20 transition-all duration-500"></div>
+
+        <!-- 3D Card Inner Wrapper -->
+        <div id="portrait-card" class="relative w-full h-full transform-style-3d transition-transform duration-700 ease-out select-none">
+          <!-- Front Face: Professional portrait -->
+          <div class="absolute inset-0 w-full h-full backface-hidden rounded-3xl border border-border overflow-hidden bg-surface shadow-xl flex items-end">
+            <img 
+              id="portrait-img"
+              src={profileImage.src} 
+              alt="Benny Samuel HOUNSOU" 
+              class="absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+            />
+            <!-- Overlay Info -->
+            <div class="relative w-full p-4 bg-surface/90 backdrop-blur-md border-t border-border m-3 rounded-2xl flex justify-between items-center shadow-md">
+              <div>
+                <h3 class="text-sm font-bold text-text-main font-mono">Benny Samuel HOUNSOU</h3>
+                <p class="text-[11px] text-text-sub font-sans">
+                  <span class="lang-fr">Expert IA, Automatisation & Cybersécurité</span>
+                  <span class="lang-en">AI, Automation & Cybersecurity Expert</span>
+                </p>
+              </div>
+              <span class="text-[10px] font-mono font-bold text-emerald-600 bg-emerald-500/10 dark:text-emerald-400 dark:bg-emerald-500/20 px-2 py-0.5 rounded-full uppercase tracking-widest">
+                <span class="lang-fr">En Ligne</span>
+                <span class="lang-en">Online</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Back Face: Technical specifications -->
+          <div class="absolute inset-0 w-full h-full rotate-y-180 backface-hidden rounded-3xl border border-border bg-surface p-6 flex flex-col justify-between shadow-xl">
+            <div class="flex justify-between items-center border-b border-border pb-3">
+              <span class="font-mono text-xs font-bold text-primary uppercase tracking-widest">
+                <span class="lang-fr">Spécifications</span>
+                <span class="lang-en">Specifications</span>
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+
+            <div class="flex flex-col gap-3.5 my-auto">
+              <div class="flex justify-between text-xs font-sans border-b border-border pb-1.5">
+                <span class="text-text-sub font-semibold">
+                  <span class="lang-fr">Nom Complet :</span>
+                  <span class="lang-en">Full Name :</span>
+                </span>
+                <span class="text-text-main font-mono font-bold">Benny Samuel HOUNSOU</span>
+              </div>
+              <div class="flex justify-between text-xs font-sans border-b border-border pb-1.5">
+                <span class="text-text-sub font-semibold">
+                  <span class="lang-fr">Spécialisation :</span>
+                  <span class="lang-en">Specialty :</span>
+                </span>
+                <span class="text-text-main font-mono font-bold text-right">IA, Systèmes & Cybersécurité</span>
+              </div>
+              <div class="flex justify-between text-xs font-sans border-b border-border pb-1.5">
+                <span class="text-text-sub font-semibold">
+                  <span class="lang-fr">Frameworks favoris :</span>
+                  <span class="lang-en">Favorite Tech :</span>
+                </span>
+                <span class="text-text-main font-mono font-bold">PyTorch, FastAPI, React</span>
+              </div>
+              <div class="flex justify-between text-xs font-sans border-b border-border pb-1.5">
+                <span class="text-text-sub font-semibold">
+                  <span class="lang-fr">Formation :</span>
+                  <span class="lang-en">Education :</span>
+                </span>
+                <span class="text-text-main font-mono font-bold">IFRI Cotonou</span>
+              </div>
+              <div class="flex justify-between text-xs font-sans">
+                <span class="text-text-sub font-semibold">
+                  <span class="lang-fr">Localisation :</span>
+                  <span class="lang-en">Location :</span>
+                </span>
+                <span class="text-text-main font-mono font-bold">Cotonou, Bénin (GMT+1)</span>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center border-t border-border pt-3 text-[10px] text-text-sub font-mono">
+              <span class="lang-fr">CLIQUER POUR FLIPPER</span>
+              <span class="lang-en">CLICK TO FLIP CARD</span>
+              <span class="text-[9px] font-mono font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                IFRI CS
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Portrait Card Script -->
+  <script>
+    const card = document.getElementById('portrait-card');
+    if (card) {
+      card.parentElement?.addEventListener('click', () => {
+        card.classList.toggle('[transform:rotateY(180deg)]');
+      });
+    }
+  </script>
+
+  <!-- Stats Grid -->
+  <section class="border-y border-border bg-surface/30">
+    <div class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-2 lg:grid-cols-4 gap-8">
+      {stats.map(s => (
+        <div class="flex flex-col gap-1 text-center sm:text-left">
+          <span class="text-3xl md:text-4xl font-extrabold text-primary font-heading italic tracking-tight">{s.value}</span>
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-text-main mt-1">
+            <span class="lang-fr">{s.labelFr}</span>
+            <span class="lang-en">{s.labelEn}</span>
+          </span>
+          <span class="text-xs text-text-sub mt-0.5">
+            <span class="lang-fr">{s.descFr}</span>
+            <span class="lang-en">{s.descEn}</span>
+          </span>
+        </div>
+      ))}
+
+      <!-- Animated project counter -->
+      <div class="flex flex-col gap-1 text-center sm:text-left">
+        <span class="text-3xl md:text-4xl font-extrabold text-primary font-heading italic tracking-tight">
+          <span id="project-counter" data-target={totalProjectsCount}>0</span>+
+        </span>
+        <span class="text-xs font-mono font-bold uppercase tracking-wider text-text-main mt-1">
+          <span class="lang-fr">Projets Réalisés</span>
+          <span class="lang-en">Projects Shipped</span>
+        </span>
+        <span class="text-xs text-text-sub mt-0.5">
+          <span class="lang-fr">IA, cybersécurité et fullstack confondus</span>
+          <span class="lang-en">Across AI, cybersecurity, and fullstack</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <script define:vars={{ totalProjectsCount }}>
+    const counterEl = document.getElementById('project-counter');
+    if (counterEl) {
+      const target = totalProjectsCount;
+      const duration = 1200;
+      let start = null;
+      const step = (ts) => {
+        if (start === null) start = ts;
+        const progress = Math.min((ts - start) / duration, 1);
+        counterEl.textContent = Math.floor(progress * target).toString();
+        if (progress < 1) requestAnimationFrame(step);
+        else counterEl.textContent = target.toString();
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            requestAnimationFrame(step);
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.4 });
+      observer.observe(counterEl);
+    }
+  </script>
+
+  <!-- Three Pillars — reinforces broader positioning before diving into projects -->
+  <section class="max-w-6xl mx-auto px-6 py-16 md:py-20">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-2 p-6 rounded-2xl border border-border bg-surface/50">
+        <span class="text-xs font-mono font-bold text-primary uppercase tracking-widest">01</span>
+        <h3 class="text-lg font-bold text-text-main font-heading">
+          <span class="lang-fr">IA & Automatisation</span>
+          <span class="lang-en">AI & Automation</span>
+        </h3>
+        <p class="text-sm text-text-sub leading-relaxed">
+          <span class="lang-fr">Architectures deep learning et pipelines ML implémentés de A à Z, pour automatiser des processus réels.</span>
+          <span class="lang-en">Deep learning architectures and ML pipelines built from scratch to automate real-world processes.</span>
+        </p>
+      </div>
+      <div class="flex flex-col gap-2 p-6 rounded-2xl border border-border bg-surface/50">
+        <span class="text-xs font-mono font-bold text-primary uppercase tracking-widest">02</span>
+        <h3 class="text-lg font-bold text-text-main font-heading">
+          <span class="lang-fr">Systèmes & Fullstack</span>
+          <span class="lang-en">Systems & Fullstack</span>
+        </h3>
+        <p class="text-sm text-text-sub leading-relaxed">
+          <span class="lang-fr">Du script simple à l'application fullstack complète — APIs asynchrones, interfaces modernes, déploiement.</span>
+          <span class="lang-en">From a simple script to a complete fullstack application — async APIs, modern interfaces, deployment.</span>
+        </p>
+      </div>
+      <div class="flex flex-col gap-2 p-6 rounded-2xl border border-border bg-surface/50">
+        <span class="text-xs font-mono font-bold text-primary uppercase tracking-widest">03</span>
+        <h3 class="text-lg font-bold text-text-main font-heading">
+          <span class="lang-fr">Cybersécurité Augmentée par l'IA</span>
+          <span class="lang-en">AI-Augmented Cybersecurity</span>
+        </h3>
+        <p class="text-sm text-text-sub leading-relaxed">
+          <span class="lang-fr">IDS/IPS, anti-phishing, sandbox et scanner de vulnérabilités pilotés par des modèles d'IA.</span>
+          <span class="lang-en">IDS/IPS, anti-phishing, sandboxing, and vulnerability scanning driven by AI models.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section class="max-w-6xl mx-auto px-6 py-4 md:py-8 flex flex-col gap-12">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div>
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary">
+          <span class="lang-fr">Portfolio Sélectionné</span>
+          <span class="lang-en">Selected Portfolio</span>
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mt-1 text-text-main font-heading">
+          <span class="lang-fr">Projets Récents & Travaux Réalisés</span>
+          <span class="lang-en">Recent Projects & Work Done</span>
+        </h2>
+      </div>
+      <a 
+        href="/projets" 
+        class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-hover group transition-colors"
+      >
+        <span class="lang-fr">Découvrir tous les projets</span>
+        <span class="lang-en">Discover all projects</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" x2="19" y1="12" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {featuredProjects.map(project => (
+        <article class="group flex flex-col bg-surface border border-border rounded-2xl overflow-hidden shadow-sm card-hover">
+          <div class="relative aspect-[16/9] overflow-hidden border-b border-border">
+            <img
+              src={project.data.image_cover}
+              alt={project.data.title}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="p-6 flex-grow flex flex-col justify-between gap-4">
+            <div>
+              <div class="flex items-center justify-between gap-2 font-mono text-[10px]">
+                <span class="text-text-sub">{project.data.date_debut.substring(0, 4)}</span>
+                <span class={`px-2 py-0.5 rounded-full font-bold uppercase tracking-wide ${
+                  project.data.status === 'terminé' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' :
+                  project.data.status === 'en cours' ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400' :
+                  'bg-amber-500/10 text-amber-600'
+                }`}>
+                  <span class="lang-fr">{project.data.status}</span>
+                  <span class="lang-en">{project.data.status === 'terminé' ? 'completed' : project.data.status === 'en cours' ? 'in progress' : 'planned'}</span>
+                </span>
+              </div>
+
+              <h3 class="text-xl font-bold text-text-main mt-3 tracking-tight font-heading">
+                {project.data.title}
+              </h3>
+
+              <p class="text-sm text-text-sub mt-2 leading-relaxed">
+                {project.data.description}
+              </p>
+            </div>
+
+            <div>
+              <!-- Stack Badges -->
+              <div class="flex flex-wrap gap-1.5 mt-4">
+                {project.data.stack.slice(0, 4).map((tech: string) => (
+                  <span class="text-[10px] font-mono bg-border/40 text-text-main px-2 py-0.5 rounded-md font-medium">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <a 
+                href={`/projets/${project.id}`} 
+                class="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary-hover uppercase tracking-wider mt-6 group transition-colors"
+              >
+                <span class="lang-fr">Détails & Code</span>
+                <span class="lang-en">Details & Code</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Latest Blog Posts -->
+  <section class="bg-surface/30 border-t border-border">
+    <div class="max-w-6xl mx-auto px-6 py-16 md:py-24 flex flex-col gap-12">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary">
+            <span class="lang-fr">Articles Récents</span>
+            <span class="lang-en">Recent Articles</span>
+          </span>
+          <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mt-1 text-text-main font-heading">
+            <span class="lang-fr">Pensées Techniques & Analyses</span>
+            <span class="lang-en">Technical Thoughts & Analyses</span>
+          </h2>
+        </div>
+        <a 
+          href="/blog" 
+          class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-hover group transition-colors"
+        >
+          <span class="lang-fr">Lire tous les articles</span>
+          <span class="lang-en">Read all articles</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" x2="19" y1="12" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Blog Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {latestBlog.map(post => (
+          <article class="group flex flex-col md:flex-row bg-surface border border-border rounded-2xl overflow-hidden shadow-sm card-hover">
+            <div class="relative w-full md:w-48 shrink-0 aspect-[16/9] md:aspect-auto overflow-hidden">
+              <img
+                src={post.data.image_cover}
+                alt={post.data.title}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <div class="flex-grow flex flex-col justify-between gap-4 p-6">
+              <div>
+                <div class="flex items-center gap-3 font-mono text-[10px] text-text-sub">
+                  <span>{new Date(post.data.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                  <span>•</span>
+                  <span>
+                    <span class="lang-fr">{post.data.temps_lecture} min de lecture</span>
+                    <span class="lang-en">{post.data.temps_lecture} min read</span>
+                  </span>
+                </div>
+
+                <h3 class="text-xl font-bold text-text-main mt-2 tracking-tight font-heading hover:text-primary transition-colors">
+                  <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                </h3>
+
+                <p class="text-sm text-text-sub mt-2 leading-relaxed">
+                  {post.data.resume}
+                </p>
+              </div>
+
+              <div>
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-1.5 mt-2">
+                  {post.data.tags.map((t: string) => (
+                    <span class="text-[10px] font-mono bg-primary/5 text-primary px-2 py-0.5 rounded-full font-semibold">
+                      #{t}
+                    </span>
+                  ))}
+                </div>
+
+                <a 
+                  href={`/blog/${post.id}`} 
+                  class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:text-primary-hover uppercase tracking-wider mt-5 group transition-colors"
+                >
+                  <span class="lang-fr">Lire l'article</span>
+                  <span class="lang-en">Read article</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation Narrative Block -->
+  <section class="max-w-4xl mx-auto px-6 py-16 md:py-24 text-center">
+    <div class="bg-surface border border-border rounded-3xl p-8 md:p-12 shadow-sm flex flex-col gap-6 items-center">
+      <span class="font-mono text-xs font-bold uppercase tracking-wider text-accent">
+        <span class="lang-fr">La Suite</span>
+        <span class="lang-en">Next Step</span>
+      </span>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-text-main font-heading">
+        <span class="lang-fr">Vous voulez en savoir plus sur mon approche et mes ambitions ?</span>
+        <span class="lang-en">Do you want to know more about my approach and ambitions?</span>
+      </h2>
+      <p class="text-sm md:text-base text-text-sub max-w-xl leading-relaxed">
+        <span class="lang-fr">Découvrez comment je concilie rigueur académique et développement intensif de systèmes d'IA complexes de bout en bout.</span>
+        <span class="lang-en">Discover how I reconcile academic rigor and intensive development of complex AI systems from end to end.</span>
+      </p>
+      <a 
+        href="/parcours" 
+        class="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white hover:bg-primary-hover shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 btn-hover"
+      >
+        <span class="lang-fr">Parcourir mon histoire</span>
+        <span class="lang-en">Browse my story</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" x2="19" y1="12" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

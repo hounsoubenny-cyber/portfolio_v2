@@ -1,0 +1,459 @@
+---
+import '../index.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+const { title, description, image = "/images/og-image.png" } = Astro.props;
+const pathname = Astro.url.pathname;
+
+// Dynamic active link styles
+const isActive = (path: string) => {
+  if (path === "/") {
+    return pathname === "/" || pathname === "" ? "text-primary font-bold border-b-2 border-primary" : "text-text-sub hover:text-primary transition-colors";
+  }
+  return pathname.startsWith(path) ? "text-primary font-bold border-b-2 border-primary" : "text-text-sub hover:text-primary transition-colors";
+};
+
+const navItems = [
+  { href: "/", labelFr: "Accueil", labelEn: "Home" },
+  { href: "/parcours", labelFr: "Parcours", labelEn: "Journey" },
+  { href: "/expertise", labelFr: "Expertise", labelEn: "Expertise" },
+  { href: "/projets", labelFr: "Projets", labelEn: "Projects" },
+  { href: "/blog", labelFr: "Blog", labelEn: "Blog" },
+  { href: "/contact", labelFr: "Contact", labelEn: "Contact" },
+];
+---
+
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title} — Benny S. HOUNSOU</title>
+    <meta name="title" content={`${title} — Benny S. HOUNSOU`} />
+    <meta name="description" content={description} />
+    <meta name="author" content="Benny Samuel HOUNSOU" />
+    <meta name="keywords" content="Benny Samuel HOUNSOU, IFRI Cotonou, Machine Learning, Fullstack, Cybersécurité, RAG Offline, France, Bénin, Développeur Python, PyTorch, React, FastAPI, deep learning, intelligence artificielle" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={`${title} — Benny S. HOUNSOU`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={`${title} — Benny S. HOUNSOU`} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+
+    <!-- Sitemap & Canonical -->
+    <link rel="canonical" href={Astro.url} />
+
+    <!-- JSON-LD Person Schema for SEO -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Benny Samuel HOUNSOU",
+        "url": "https://benny-hounsou.vercel.app",
+        "jobTitle": "Expert IA, Automatisation & Cybersécurité",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Cotonou",
+          "addressCountry": "BJ"
+        },
+        "email": "hounsoubenny.cyber@gmail.com",
+        "sameAs": [
+          "https://github.com/hounsoubenny-cyber",
+          "https://linkedin.com/in/benny-samuel-hounsou-631023249"
+        ]
+      }
+    </script>
+
+    <!-- Injected Theme & Language Script (Blocking to prevent FOUC) -->
+    <script is:inline>
+      const getTheme = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      };
+      
+      const theme = getTheme();
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        document.documentElement.classList.remove('dark');
+      }
+
+      const getLang = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('lang')) {
+          return localStorage.getItem('lang');
+        }
+        return 'fr';
+      };
+      const lang = getLang();
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+    </script>
+  </head>
+  
+  <body class="bg-bg text-text-sub min-h-screen flex flex-col selection:bg-primary/20 selection:text-primary">
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-border transition-colors duration-300">
+      <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <!-- Logo / Name -->
+        <a href="/" class="flex items-center gap-2 group">
+          <span class="font-heading text-lg md:text-xl font-bold tracking-tight text-text-main group-hover:text-primary transition-colors">
+            Benny Samuel HOUNSOU
+          </span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-8 font-sans text-sm font-medium">
+          {navItems.map(item => (
+            <a href={item.href} class={`py-1.5 px-0.5 ${isActive(item.href)}`}>
+              <span class="lang-fr">{item.labelFr}</span>
+              <span class="lang-en">{item.labelEn}</span>
+            </a>
+          ))}
+        </nav>
+
+        <!-- Right Utilities (Language, Theme Toggle & Mobile Menu Btn) -->
+        <div class="flex items-center gap-3">
+          <!-- Language Switcher Select Dropdown -->
+          <div class="relative flex items-center">
+            <select 
+              id="lang-select" 
+              aria-label="Select language" 
+              class="appearance-none flex items-center gap-1.5 pl-8 pr-7 py-2 rounded-xl border border-border bg-surface hover:bg-border transition-all duration-300 cursor-pointer font-mono text-xs font-extrabold text-text-main focus:outline-none focus:ring-2 focus:ring-primary/20"
+            >
+              <option value="fr">FR</option>
+              <option value="en">EN</option>
+            </select>
+            <div class="absolute left-2.5 pointer-events-none text-primary flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <div class="absolute right-2.5 pointer-events-none text-text-sub flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Theme Toggle Button -->
+          <button 
+            id="theme-toggle" 
+            aria-label="Toggle theme" 
+            class="p-2 rounded-xl border border-border bg-surface hover:bg-border transition-all duration-300 cursor-pointer btn-hover"
+          >
+            <!-- Sun Icon (Visible in Dark Mode) -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 hidden dark:block text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <!-- Moon Icon (Visible in Light Mode) -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 block dark:hidden text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+
+          <!-- Mobile Menu Trigger -->
+          <button 
+            id="mobile-menu-toggle" 
+            aria-label="Open navigation menu" 
+            class="md:hidden p-2 rounded-xl border border-border bg-surface hover:bg-border transition-colors duration-300"
+          >
+            <svg id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-main" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+            <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-main hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" x2="6" y1="6" y2="18"></line>
+              <line x1="6" x2="18" y1="6" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-surface transition-all duration-300 shadow-xl">
+        <nav class="flex flex-col px-6 py-4 gap-4 font-sans text-base font-semibold">
+          {navItems.map(item => (
+            <a href={item.href} class={`py-2 border-b border-border/45 last:border-none ${isActive(item.href)}`}>
+              <span class="lang-fr">{item.labelFr}</span>
+              <span class="lang-en">{item.labelEn}</span>
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content Stage -->
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-border bg-surface/40 py-12 transition-colors duration-300">
+      <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-center md:text-left animate-fadeIn">
+          <p class="font-heading text-lg font-bold text-text-main">
+            Benny Samuel HOUNSOU
+          </p>
+          <p class="text-xs text-text-sub mt-1">
+            <span class="lang-fr">Développeur Fullstack, Automation & Spécialiste Machine Learning</span>
+            <span class="lang-en">Fullstack Developer, Automation & Machine Learning Specialist</span>
+          </p>
+        </div>
+
+        <div class="flex items-center gap-6 text-sm font-sans">
+          <a href="/parcours" class="hover:text-primary transition-colors">
+            <span class="lang-fr">Parcours</span>
+            <span class="lang-en">Journey</span>
+          </a>
+          <a href="/expertise" class="hover:text-primary transition-colors">
+            <span class="lang-fr">Expertise</span>
+            <span class="lang-en">Expertise</span>
+          </a>
+          <a href="/projets" class="hover:text-primary transition-colors">
+            <span class="lang-fr">Projets</span>
+            <span class="lang-en">Projects</span>
+          </a>
+          <a href="/blog" class="hover:text-primary transition-colors">
+            <span class="lang-fr">Blog</span>
+            <span class="lang-en">Blog</span>
+          </a>
+          <a href="/contact" class="hover:text-primary transition-colors">
+            <span class="lang-fr">Contact</span>
+            <span class="lang-en">Contact</span>
+          </a>
+        </div>
+
+        <div class="text-center md:text-right text-xs text-text-sub">
+          <span class="lang-fr">&copy; {new Date().getFullYear()} Benny Samuel HOUNSOU. Tous droits réservés.</span>
+          <span class="lang-en">&copy; {new Date().getFullYear()} Benny Samuel HOUNSOU. All rights reserved.</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Client Script for Interactive Navbar and Theme/Language Switch -->
+    <script>
+      // 1. Mobile Menu toggle behavior
+      const menuToggle = document.getElementById('mobile-menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const openIcon = document.getElementById('menu-icon-open');
+      const closeIcon = document.getElementById('menu-icon-close');
+
+      if (menuToggle && mobileMenu && openIcon && closeIcon) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = mobileMenu.classList.contains('hidden');
+          if (isOpen) {
+            mobileMenu.classList.remove('hidden');
+            openIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+          } else {
+            mobileMenu.classList.add('hidden');
+            openIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+          }
+        });
+      }
+
+      // 2. Theme Toggle interaction
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          
+          document.documentElement.setAttribute('data-theme', nextTheme);
+          if (nextTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+          localStorage.setItem('theme', nextTheme);
+        });
+      }
+
+      // 3. Language Select interaction
+      const langSelect = document.getElementById('lang-select') as HTMLSelectElement;
+      if (langSelect) {
+        // Sync select value on startup
+        const currentLang = document.documentElement.getAttribute('data-lang') || 'fr';
+        langSelect.value = currentLang;
+
+        langSelect.addEventListener('change', (e) => {
+          const target = e.target as HTMLSelectElement;
+          const newLang = target.value;
+          
+          document.documentElement.setAttribute('data-lang', newLang);
+          document.documentElement.setAttribute('lang', newLang);
+          localStorage.setItem('lang', newLang);
+          
+          // Emit event so dynamic components can update if needed
+          window.dispatchEvent(new Event('lang-changed'));
+        });
+
+        // Also sync if changed from external source
+        window.addEventListener('lang-changed', () => {
+          const syncLang = document.documentElement.getAttribute('data-lang') || 'fr';
+          if (langSelect.value !== syncLang) {
+            langSelect.value = syncLang;
+          }
+        });
+      }
+
+      // 4. Function to process markdown text with fr/en headings
+      function processMarkdownBody() {
+        const containers = document.querySelectorAll('.markdown-body');
+        containers.forEach(container => {
+          // Check if already processed
+          if (container.querySelector('.lang-fr') || container.querySelector('.lang-en')) {
+            return;
+          }
+          
+          const children = Array.from(container.children);
+          let currentLang = null;
+          const frDiv = document.createElement('div');
+          frDiv.className = 'lang-fr flex flex-col gap-4';
+          const enDiv = document.createElement('div');
+          enDiv.className = 'lang-en flex flex-col gap-4';
+
+          let hasFrOrEnHeader = false;
+
+          children.forEach(child => {
+            const text = child.textContent?.trim().toLowerCase();
+            const isHeader = child.tagName === 'H2';
+            
+            if (isHeader && (child.id === 'fr' || text === 'fr')) {
+              currentLang = 'fr';
+              hasFrOrEnHeader = true;
+              child.remove();
+            } else if (isHeader && (child.id === 'en' || text === 'en')) {
+              currentLang = 'en';
+              hasFrOrEnHeader = true;
+              child.remove();
+            } else if (child.tagName === 'HR' && hasFrOrEnHeader) {
+              // Skip HR elements separating the languages
+              child.remove();
+            } else {
+              if (currentLang === 'fr') {
+                frDiv.appendChild(child);
+              } else if (currentLang === 'en') {
+                enDiv.appendChild(child);
+              } else {
+                // Default before any language heading is found goes to French
+                frDiv.appendChild(child);
+              }
+            }
+          });
+
+          // If we found any fr/en header, replace with segmented language containers
+          if (hasFrOrEnHeader) {
+            container.appendChild(frDiv);
+            container.appendChild(enDiv);
+          }
+        });
+      }
+
+      // Run on initial load
+      processMarkdownBody();
+
+      // Run on language toggle event
+      window.addEventListener('lang-changed', () => {
+        processMarkdownBody();
+      });
+
+      // 5. Scroll Reveal / Scroll Lazy-Loading Animation
+      function initScrollReveal() {
+        const selectorsToReveal = [
+          'main > section',
+          'main h1',
+          'main h2',
+          '.card-hover',
+          '.timeline-item',
+          '.project-card',
+          '.blog-card',
+          '.expertise-card',
+          '.skill-category-card'
+        ];
+
+        selectorsToReveal.forEach(selector => {
+          document.querySelectorAll(selector).forEach(el => {
+            // Skip headers, footers, menus, or already revealed items
+            if (el.closest('header') || el.closest('footer') || el.closest('#mobile-menu')) {
+              return;
+            }
+            if (!el.classList.contains('scroll-reveal')) {
+              el.classList.add('scroll-reveal');
+            }
+          });
+        });
+
+        const revealElements = document.querySelectorAll('.scroll-reveal');
+        
+        const observerOptions = {
+          root: null,
+          rootMargin: '0px 0px -60px 0px', // Trigger slightly before full entrance
+          threshold: 0.05
+        };
+
+        const observer = new IntersectionObserver((entries, observerInstance) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observerInstance.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        revealElements.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          // If already in or above the viewport on initial load, show immediately to prevent flash
+          if (rect.top < window.innerHeight - 20) {
+            el.classList.add('revealed');
+          } else {
+            observer.observe(el);
+          }
+        });
+      }
+
+      // Boot scroll reveal on load
+      if (document.readyState === 'interactive' || document.readyState === 'complete') {
+        initScrollReveal();
+      } else {
+        document.addEventListener('DOMContentLoaded', initScrollReveal);
+      }
+    </script>
+  </body>
+</html>

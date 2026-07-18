@@ -1,0 +1,193 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getEntry, render } from 'astro:content';
+import { TIMELINE_ITEMS } from '../data.ts';
+import bennyPortrait from '../assets/images/benny_portrait_parcours.jpg';
+
+// Fetch and render biography content from markdown
+const bioEntry = await getEntry('parcours', 'bio');
+let RenderedContent = null;
+if (bioEntry) {
+  const rendered = await render(bioEntry);
+  RenderedContent = rendered.Content;
+}
+---
+
+<Layout
+  title="Mon Parcours"
+  description="Découvrez l'histoire de Benny Samuel HOUNSOU. De la passion pour la programmation système et les réseaux bas niveau jusqu'aux modèles de Deep Learning à l'IFRI."
+>
+  <div class="max-w-5xl mx-auto px-6 py-12 md:py-20 flex flex-col gap-16 animate-fadeIn">
+    <!-- Header -->
+    <div class="flex flex-col gap-3">
+      <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary">
+        <span class="lang-fr">Histoire & Jalons</span>
+        <span class="lang-en">History & Milestones</span>
+      </span>
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-text-main font-heading">
+        <span class="lang-fr">Mon Parcours Académique & Professionnel</span>
+        <span class="lang-en">My Academic & Professional Journey</span>
+      </h1>
+      <p class="text-base text-text-sub max-w-xl font-sans">
+        <span class="lang-fr">Une quête constante de rigueur technique, alliant formation universitaire de pointe et projets réels exigeants.</span>
+        <span class="lang-en">A constant quest for technical rigor, combining top-tier university education with demanding real-world projects.</span>
+      </p>
+    </div>
+
+    <!-- Biography Section (Rendered from bio.md) -->
+    <section class="prose dark:prose-invert max-w-none bg-surface border border-border rounded-3xl p-8 md:p-10 shadow-sm relative overflow-hidden">
+      <!-- Background subtle graphics to avoid template-y feel -->
+      <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
+        <!-- Text Column -->
+        <div class="lg:col-span-8 flex flex-col">
+          <div class="flex items-center gap-3 border-b border-border pb-4 mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            <span class="font-mono text-xs font-bold uppercase tracking-wider text-text-main">
+              <span class="lang-fr">Biographie & Philosophie</span>
+              <span class="lang-en">Biography & Philosophy</span>
+            </span>
+          </div>
+
+          <!-- Inside this element we will render our biography Markdown directly! -->
+          <div class="markdown-body font-sans text-sm md:text-base text-text-sub leading-relaxed flex flex-col gap-6">
+            {RenderedContent ? (
+              <RenderedContent />
+            ) : (
+              <p class="italic text-text-sub">
+                <span class="lang-fr">Contenu de la biographie introuvable.</span>
+                <span class="lang-en">Biography content not found.</span>
+              </p>
+            )}
+          </div>
+        </div>
+
+        <!-- Image Column: Custom organic developer frame -->
+        <div class="lg:col-span-4 flex flex-col gap-4 lg:sticky lg:top-24 mt-6 lg:mt-0">
+          <div class="relative group rounded-3xl overflow-hidden border border-border shadow-md aspect-[4/5] bg-bg">
+            <div class="absolute -inset-4 bg-gradient-to-tr from-primary to-accent opacity-10 group-hover:opacity-25 blur-2xl transition-all duration-700"></div>
+            <img
+              src={bennyPortrait.src}
+              alt="Benny Samuel HOUNSOU"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03] grayscale hover:grayscale-0"
+              referrerpolicy="no-referrer"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <h4 class="text-sm font-bold font-heading">Benny Samuel HOUNSOU</h4>
+              <p class="text-[10px] opacity-80 font-mono uppercase tracking-wider mt-0.5">Cotonou, Bénin</p>
+            </div>
+          </div>
+
+          <div class="p-4 bg-bg/50 border border-border rounded-2xl flex flex-col gap-2">
+            <span class="font-mono text-[9px] font-bold text-text-sub uppercase tracking-widest block">
+              <span class="lang-fr">Environnement favori</span>
+              <span class="lang-en">Favorite Environment</span>
+            </span>
+            <div class="flex flex-wrap gap-1">
+              <span class="text-[10px] font-mono bg-surface border border-border px-2 py-0.5 rounded font-semibold text-text-main">Linux (Fedora)</span>
+              <span class="text-[10px] font-mono bg-surface border border-border px-2 py-0.5 rounded font-semibold text-text-main">VSCodium</span>
+              <span class="text-[10px] font-mono bg-surface border border-border px-2 py-0.5 rounded font-semibold text-text-main">Spyder</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vertical Timeline Section -->
+    <section class="flex flex-col gap-8">
+      <div class="flex items-center gap-3 border-b border-border pb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <h2 class="text-2xl font-bold text-text-main font-heading">
+          <span class="lang-fr">Chronologie des Accomplissements</span>
+          <span class="lang-en">Timeline of Achievements</span>
+        </h2>
+      </div>
+
+      <div class="relative border-l-2 border-border ml-4 md:ml-6 flex flex-col gap-12 pt-4">
+        {TIMELINE_ITEMS.map((item) => (
+          <div class="relative pl-8 md:pl-10 group">
+            <!-- Point on timeline -->
+            <span class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full border-2 border-primary bg-bg group-hover:bg-primary transition-colors duration-300"></span>
+
+            <div class="flex flex-col gap-1.5 bg-surface border border-border rounded-2xl p-6 shadow-sm card-hover">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 font-mono text-xs">
+                <span class="font-bold text-primary tracking-wider">{item.period}</span>
+                <span class="text-text-sub">
+                  <span class="lang-fr">{item.institution.fr}</span>
+                  <span class="lang-en">{item.institution.en}</span>
+                </span>
+              </div>
+
+              <h3 class="text-lg font-bold text-text-main tracking-tight font-heading mt-2 group-hover:text-primary transition-colors">
+                <span class="lang-fr">{item.title.fr}</span>
+                <span class="lang-en">{item.title.en}</span>
+              </h3>
+
+              <p class="text-sm text-text-sub leading-relaxed mt-2 font-sans">
+                <span class="lang-fr">{item.description.fr}</span>
+                <span class="lang-en">{item.description.en}</span>
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="border-t border-border pt-12 text-center flex flex-col items-center gap-4">
+      <h3 class="font-heading text-xl font-bold text-text-main">
+        <span class="lang-fr">Découvrez mes compétences techniques</span>
+        <span class="lang-en">Discover my technical skills</span>
+      </h3>
+      <p class="text-sm text-text-sub max-w-md">
+        <span class="lang-fr">Explorez en détail ma stack technologique ainsi que mes domaines d'expertise clés en IA, cybersécurité et développement fullstack.</span>
+        <span class="lang-en">Explore in detail my tech stack and key areas of expertise in AI, cybersecurity, and full-stack development.</span>
+      </p>
+      <a
+        href="/expertise"
+        class="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white hover:bg-primary-hover shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 btn-hover"
+      >
+        <span class="lang-fr">Consulter mes expertises</span>
+        <span class="lang-en">View my expertise</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" x2="19" y1="12" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </section>
+  </div>
+</Layout>
+
+<style is:global>
+  /* Markdown styling custom definitions to keep it extremely clean */
+  .markdown-body h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-main-val);
+    border-bottom: 1px solid var(--color-border-val);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-heading);
+  }
+  .markdown-body p {
+    margin-bottom: 1rem;
+  }
+  .markdown-body strong {
+    color: var(--color-text-main-val);
+    font-weight: 600;
+  }
+  .markdown-body hr {
+    border: none;
+    border-top: 1px dashed var(--color-border-val);
+    margin: 2rem 0;
+  }
+</style>
