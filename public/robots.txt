@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://benny-hounsou.vercel.app/sitemap-index.xml
+Sitemap: https://portfolio-v2-d39.pages.dev/sitemap-index.xml

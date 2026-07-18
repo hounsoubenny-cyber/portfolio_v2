@@ -2,9 +2,10 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
-// ⚠️ Remplace par ton vrai domaine une fois déployé (Vercel/Render/Cloudflare...).
+// ⚠️ A remplace par mon vrai domaine une fois déployé (Vercel/Render/Cloudflare...).
 // Nécessaire pour que le sitemap et les URLs canoniques/OG soient corrects.
-const SITE_URL = 'https://benny-hounsou.vercel.app';
+
+const SITE_URL = 'https://portfolio-v2-d39.pages.dev/';
 
 export default defineConfig({
   site: SITE_URL,
