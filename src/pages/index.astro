@@ -23,8 +23,8 @@ const stats = [
 ];
 ---
 
-<Layout 
-  title="Accueil" 
+<Layout
+  title="Accueil"
   description="Portfolio de Benny Samuel HOUNSOU. Expert en automatisation, développement fullstack, architectures d'IA locales et cybersécurité native."
 >
   <!-- Hero Section -->
@@ -51,8 +51,8 @@ const stats = [
 
       <!-- CTA Action Group -->
       <div class="flex flex-wrap items-center gap-4 mt-2">
-        <a 
-          href="/projets" 
+        <a
+          href="/projets"
           class="flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white hover:bg-primary-hover shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 btn-hover"
         >
           <span class="lang-fr">Consulter les projets</span>
@@ -62,8 +62,8 @@ const stats = [
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </a>
-        <a 
-          href="/parcours" 
+        <a
+          href="/parcours"
           class="flex items-center gap-2 rounded-xl border border-border bg-surface px-6 py-3.5 text-sm font-semibold text-text-main hover:bg-border/40 hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm btn-hover"
         >
           <span class="lang-fr">Mon parcours</span>
@@ -82,10 +82,10 @@ const stats = [
         <div id="portrait-card" class="relative w-full h-full transform-style-3d transition-transform duration-700 ease-out select-none">
           <!-- Front Face: Professional portrait -->
           <div class="absolute inset-0 w-full h-full backface-hidden rounded-3xl border border-border overflow-hidden bg-surface shadow-xl flex items-end">
-            <img 
+            <img
               id="portrait-img"
-              src={profileImage.src} 
-              alt="Benny Samuel HOUNSOU" 
+              src={profileImage.src}
+              alt="Benny Samuel HOUNSOU"
               class="absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
             />
             <!-- Overlay Info -->
@@ -289,8 +289,8 @@ const stats = [
           <span class="lang-en">Recent Projects & Work Done</span>
         </h2>
       </div>
-      <a 
-        href="/projets" 
+      <a
+        href="/projets"
         class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-hover group transition-colors"
       >
         <span class="lang-fr">Découvrir tous les projets</span>
@@ -305,7 +305,7 @@ const stats = [
     <!-- Projects Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       {featuredProjects.map(project => (
-        <article class="group flex flex-col bg-surface border border-border rounded-2xl overflow-hidden shadow-sm card-hover">
+        <article class="group relative flex flex-col bg-surface border border-border rounded-2xl overflow-hidden shadow-sm card-hover">
           <div class="relative aspect-[16/9] overflow-hidden border-b border-border">
             <img
               src={project.data.image_cover}
@@ -330,7 +330,9 @@ const stats = [
               </div>
 
               <h3 class="text-xl font-bold text-text-main mt-3 tracking-tight font-heading">
-                {project.data.title}
+                <a href={`/projets/${project.id}`} class="after:absolute after:inset-0 after:z-10 after:content-['']">
+                  {project.data.title}
+                </a>
               </h3>
 
               <p class="text-sm text-text-sub mt-2 leading-relaxed">
@@ -348,16 +350,13 @@ const stats = [
                 ))}
               </div>
 
-              <a 
-                href={`/projets/${project.id}`} 
-                class="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary-hover uppercase tracking-wider mt-6 group transition-colors"
-              >
+              <span class="inline-flex items-center gap-1.5 text-xs font-bold text-primary uppercase tracking-wider mt-6 group-hover:translate-x-0.5 transition-transform">
                 <span class="lang-fr">Détails & Code</span>
                 <span class="lang-en">Details & Code</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="9 18 15 12 9 6"></polyline>
                 </svg>
-              </a>
+              </span>
             </div>
           </div>
         </article>
@@ -379,8 +378,8 @@ const stats = [
             <span class="lang-en">Technical Thoughts & Analyses</span>
           </h2>
         </div>
-        <a 
-          href="/blog" 
+        <a
+          href="/blog"
           class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-hover group transition-colors"
         >
           <span class="lang-fr">Lire tous les articles</span>
@@ -395,7 +394,7 @@ const stats = [
       <!-- Blog Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {latestBlog.map(post => (
-          <article class="group flex flex-col md:flex-row bg-surface border border-border rounded-2xl overflow-hidden shadow-sm card-hover">
+          <article class="group relative flex flex-col md:flex-row bg-surface border border-border rounded-2xl overflow-hidden shadow-sm card-hover">
             <div class="relative w-full md:w-48 shrink-0 aspect-[16/9] md:aspect-auto overflow-hidden">
               <img
                 src={post.data.image_cover}
@@ -416,7 +415,7 @@ const stats = [
                 </div>
 
                 <h3 class="text-xl font-bold text-text-main mt-2 tracking-tight font-heading hover:text-primary transition-colors">
-                  <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                  <a href={`/blog/${post.id}`} class="after:absolute after:inset-0 after:z-10 after:content-['']">{post.data.title}</a>
                 </h3>
 
                 <p class="text-sm text-text-sub mt-2 leading-relaxed">
@@ -434,16 +433,13 @@ const stats = [
                   ))}
                 </div>
 
-                <a 
-                  href={`/blog/${post.id}`} 
-                  class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:text-primary-hover uppercase tracking-wider mt-5 group transition-colors"
-                >
+                <span class="inline-flex items-center gap-1 text-xs font-bold text-primary uppercase tracking-wider mt-5 group-hover:translate-x-0.5 transition-transform">
                   <span class="lang-fr">Lire l'article</span>
                   <span class="lang-en">Read article</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="9 18 15 12 9 6"></polyline>
                   </svg>
-                </a>
+                </span>
               </div>
             </div>
           </article>
@@ -467,8 +463,8 @@ const stats = [
         <span class="lang-fr">Découvrez comment je concilie rigueur académique et développement intensif de systèmes d'IA complexes de bout en bout.</span>
         <span class="lang-en">Discover how I reconcile academic rigor and intensive development of complex AI systems from end to end.</span>
       </p>
-      <a 
-        href="/parcours" 
+      <a
+        href="/parcours"
         class="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white hover:bg-primary-hover shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 btn-hover"
       >
         <span class="lang-fr">Parcourir mon histoire</span>
