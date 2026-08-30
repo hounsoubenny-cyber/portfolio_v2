@@ -8,7 +8,7 @@ tags: ["Deep Learning", "Cybersécurité", "Temps Réel"]
 image_cover: "/images/projets/ids-ai.png"
 lien_github: "https://github.com/hounsoubenny-cyber/ids-ai"
 lien_demo: null
-featured: true
+featured: false
 stack: ["TensorFlow", "PyTorch", "pcap", "Suricata", "Python", "Sockets"]
 ---
 

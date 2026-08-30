@@ -2,7 +2,7 @@
 title: "Le Prompt Injection : la faille invisible qui menace vos applications IA"
 date: "2026-08-30"
 tags: ["Cybersécurité", "IA", "LLM Security", "ContexGuard"]
-image_cover: "/images/blog/prompt_injection_guide/prompt_injection_concept.jpeg"
+image_cover: "/images/blog/prompt_injection_guide/prompt_injection_concept.jpg"
 resume: "Comprendre le prompt injection, la menace la plus sous-estimée des applications basées sur les LLM, et comment des outils comme ContexGuard permettent de s'en protéger en temps réel."
 temps_lecture: 8
 ---
@@ -15,7 +15,7 @@ Imaginez un majordome parfaitement obéissant, formé pour exécuter n'importe q
 
 Cette confusion a un nom : le **prompt injection**. Et c'est aujourd'hui l'une des vulnérabilités les plus critiques — et les plus mal comprises — de l'écosystème IA.
 
-![Illustration d'un cheval de Troie glissé dans un prompt](/images/blog/prompt_injection_guide/prompt_injection_concept.jpeg)
+![Illustration d'un cheval de Troie glissé dans un prompt](/images/blog/prompt_injection_guide/prompt_injection_concept.jpg)
 
 ### Qu'est-ce que le prompt injection, concrètement ?
 
@@ -31,7 +31,7 @@ Le résultat peut aller d'une simple réponse absurde à des conséquences bien 
 
 Pour bien s'en protéger, il faut d'abord bien classifier ce à quoi on fait face. Chez ContexGuard, nous distinguons quatre catégories bien précises :
 
-![Les 4 catégories de menaces : safe, injection, jailbreak, exfiltration](/images/blog/prompt_injection_guide/prompt_injection_categories.jpeg)
+![Les 4 catégories de menaces : safe, injection, jailbreak, exfiltration](/images/blog/prompt_injection_guide/prompt_injection_categories.jpg)
 
 * **Safe** : un prompt légitime, sans intention malveillante — la grande majorité du trafic réel.
 * **Injection** : une tentative d'override des instructions système, souvent via des formulations comme *"ignore les règles précédentes"* ou l'injection de fausses balises système.
@@ -46,7 +46,7 @@ La première intuition de beaucoup de développeurs est d'ajouter des règles re
 
 C'est là que l'approche hybride devient indispensable.
 
-![Comparaison avant/après une protection par IA](/images/blog/prompt_injection_guide/prompt_injection_avant_apres.jpeg)
+![Comparaison avant/après une protection par IA](/images/blog/prompt_injection_guide/prompt_injection_avant_apres.jpg)
 
 ### L'approche hybride : rapidité + compréhension sémantique
 
@@ -84,7 +84,7 @@ Picture a perfectly obedient butler, trained to execute any instruction given to
 
 This confusion has a name: **prompt injection**. And today, it's one of the most critical — and most misunderstood — vulnerabilities in the AI ecosystem.
 
-![Illustration of a hidden trojan horse inside a prompt](/images/blog/prompt_injection_guide/prompt_injection_concept.jpeg)
+![Illustration of a hidden trojan horse inside a prompt](/images/blog/prompt_injection_guide/prompt_injection_concept.jpg)
 
 ### What is prompt injection, exactly?
 
@@ -100,7 +100,7 @@ The consequences range from a simple absurd response to far more serious outcome
 
 To defend against this properly, you first need a precise classification of what you're facing. At ContexGuard, we distinguish four clear categories:
 
-![The 4 threat categories: safe, injection, jailbreak, exfiltration](/images/blog/prompt_injection_guide/prompt_injection_categories.jpeg)
+![The 4 threat categories: safe, injection, jailbreak, exfiltration](/images/blog/prompt_injection_guide/prompt_injection_categories.jpg)
 
 * **Safe**: a legitimate prompt with no malicious intent — the vast majority of real-world traffic.
 * **Injection**: an attempt to override system instructions, often through phrasing like *"ignore previous rules"* or by injecting fake system tags.
@@ -115,7 +115,7 @@ The first instinct of many developers is to add regex rules blocking known phras
 
 This is where a hybrid approach becomes essential.
 
-![Before/after comparison of AI-powered protection](/images/blog/prompt_injection_guide/prompt_injection_avant_apres.jpeg)
+![Before/after comparison of AI-powered protection](/images/blog/prompt_injection_guide/prompt_injection_avant_apres.jpg)
 
 ### The hybrid approach: speed + semantic understanding
 

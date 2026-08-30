@@ -3,7 +3,7 @@ title: "ContexGuard"
 description: "Plateforme de détection et protection en temps réel contre les injections de prompts, jailbreaks et exfiltrations dans les interactions LLM."
 date_debut: "2026-01-01"
 date_fin: null
-status: "en cours"
+status: "terminé"
 tags: ["IA", "Cybersécurité", "LLM Security", "Deep Learning"]
 image_cover: "/images/projets/contexguard/contexguard-cover.png"
 lien_github: "https://github.com/hounsoubenny-cyber/contextguard"
