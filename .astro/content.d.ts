@@ -131,6 +131,7 @@ declare module 'astro:content' {
   data: InferEntrySchema<"blog">;
   rendered?: RenderedContent;
   filePath?: string;
+  digest?: string | number;
 }>;
 "parcours": Record<string, {
   id: string;
@@ -139,6 +140,7 @@ declare module 'astro:content' {
   data: InferEntrySchema<"parcours">;
   rendered?: RenderedContent;
   filePath?: string;
+  digest?: string | number;
 }>;
 "projets": Record<string, {
   id: string;
@@ -147,6 +149,7 @@ declare module 'astro:content' {
   data: InferEntrySchema<"projets">;
   rendered?: RenderedContent;
   filePath?: string;
+  digest?: string | number;
 }>;
 
 	};

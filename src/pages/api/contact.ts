@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+import { RESEND_API_KEY, CONTACT_TO_EMAIL } from 'astro:env/server';
 
 // Cette route s'exécute côté serveur (pas pré-générée)
 export const prerender = false;
@@ -21,7 +22,7 @@ export const POST: APIRoute = async ({ request }) => {
         // 🍯 Honeypot : si ce champ caché est rempli, c'est un bot
         if (website) return json({ ok: true });
 
-        // ✅ Validation côté serveur (ne jamais faire confiance au client)
+        // ✅ Validation côté serveur
         if (!name || !email || !subject || !message) {
             return json({ ok: false, error: 'missing_fields' }, 400);
         }
@@ -32,12 +33,12 @@ export const POST: APIRoute = async ({ request }) => {
             return json({ ok: false, error: 'too_long' }, 400);
         }
 
-        const resend = new Resend(import.meta.env.RESEND_API_KEY);
+        const resend = new Resend(RESEND_API_KEY);
 
         const { error } = await resend.emails.send({
             from: 'Portfolio <onboarding@resend.dev>',
-            to: [import.meta.env.CONTACT_TO_EMAIL],
-            replyTo: email, // 👈 tu cliques sur "Répondre" et ça va au visiteur
+            to: [CONTACT_TO_EMAIL],
+            replyTo: email, // 👈 "Répondre" écrit directement au visiteur
             subject: `[Portfolio] ${subject}`,
             html: `
             <h2>Nouveau message depuis ton portfolio</h2>
