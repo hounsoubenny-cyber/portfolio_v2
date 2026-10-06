@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
-import { RESEND_API_KEY, CONTACT_TO_EMAIL } from 'astro:env/server';
+import { getSecret } from 'astro:env/server';
 
 // Cette route s'exécute côté serveur (pas pré-générée)
 export const prerender = false;
@@ -17,6 +17,18 @@ new Response(JSON.stringify(body), {
 
 export const POST: APIRoute = async ({ request }) => {
     try {
+        // 🔐 Lecture des secrets à l'exécution, dans le try
+        const apiKey = getSecret('RESEND_API_KEY');
+        const toEmail = getSecret('CONTACT_TO_EMAIL');
+
+        if (!apiKey || !toEmail) {
+            console.error('Variables manquantes', {
+                RESEND_API_KEY: Boolean(apiKey),
+                          CONTACT_TO_EMAIL: Boolean(toEmail),
+            });
+            return json({ ok: false, error: 'config_missing' }, 500);
+        }
+
         const { name, email, subject, message, website } = await request.json();
 
         // 🍯 Honeypot : si ce champ caché est rempli, c'est un bot
@@ -33,12 +45,12 @@ export const POST: APIRoute = async ({ request }) => {
             return json({ ok: false, error: 'too_long' }, 400);
         }
 
-        const resend = new Resend(RESEND_API_KEY);
+        const resend = new Resend(apiKey);
 
         const { error } = await resend.emails.send({
             from: 'Portfolio <onboarding@resend.dev>',
-            to: [CONTACT_TO_EMAIL],
-            replyTo: email, // 👈 "Répondre" écrit directement au visiteur
+            to: [toEmail],
+            replyTo: email,
             subject: `[Portfolio] ${subject}`,
             html: `
             <h2>Nouveau message depuis ton portfolio</h2>
@@ -57,7 +69,7 @@ export const POST: APIRoute = async ({ request }) => {
 
         return json({ ok: true });
     } catch (e) {
-        console.error(e);
+        console.error('Erreur /api/contact:', e);
         return json({ ok: false, error: 'server_error' }, 500);
     }
 };
