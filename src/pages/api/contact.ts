@@ -1,6 +1,4 @@
 import type { APIRoute } from 'astro';
-import { Resend } from 'resend';
-import { getSecret } from 'astro:env/server';
 
 // Cette route s'exécute côté serveur (pas pré-générée)
 export const prerender = false;
@@ -17,16 +15,20 @@ new Response(JSON.stringify(body), {
 
 export const POST: APIRoute = async ({ request }) => {
     try {
-        // 🔐 Lecture des secrets à l'exécution, dans le try
+        // 📦 Imports dynamiques : si l'un plante, l'erreur est capturée ici
+        const { Resend } = await import('resend');
+        const { getSecret } = await import('astro:env/server');
+
         const apiKey = getSecret('RESEND_API_KEY');
         const toEmail = getSecret('CONTACT_TO_EMAIL');
 
         if (!apiKey || !toEmail) {
-            console.error('Variables manquantes', {
-                RESEND_API_KEY: Boolean(apiKey),
-                          CONTACT_TO_EMAIL: Boolean(toEmail),
-            });
-            return json({ ok: false, error: 'config_missing' }, 500);
+            return json({
+                ok: false,
+                error: 'config_missing',
+                hasApiKey: Boolean(apiKey),
+                        hasToEmail: Boolean(toEmail),
+            }, 500);
         }
 
         const { name, email, subject, message, website } = await request.json();
@@ -64,12 +66,13 @@ export const POST: APIRoute = async ({ request }) => {
 
         if (error) {
             console.error('Resend error:', error);
-            return json({ ok: false, error: 'send_failed' }, 500);
+            return json({ ok: false, error: 'send_failed', detail: error }, 500);
         }
 
         return json({ ok: true });
     } catch (e) {
         console.error('Erreur /api/contact:', e);
-        return json({ ok: false, error: 'server_error' }, 500);
+        // ⚠️ TEMPORAIRE : on expose le message pour déboguer
+        return json({ ok: false, error: 'server_error', detail: String(e) }, 500);
     }
 };
