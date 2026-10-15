@@ -131,15 +131,15 @@ export const TIMELINE_ITEMS: TimelineItem[] = [
     }
   },
   {
-    id: 'ifri-cotonou',
+    id: 'ifri-uac',
     period: '2025 - 2026',
     title: {
       en: 'Computer Science & AI Student',
       fr: 'Étudiant en Informatique & IA'
     },
     institution: {
-      en: 'IFRI (Institut de Formation et de Recherche en Informatique) — Cotonou, Bénin',
-      fr: 'IFRI (Institut de Formation et de Recherche en Informatique) — Cotonou, Bénin'
+      en: 'IFRI-UAC (Institut de Formation et de Recherche en Informatique, Université d'Abomey-Calavi) — Abomey-Calavi, Bénin',
+      fr: 'IFRI-UAC (Institut de Formation et de Recherche en Informatique, Université d'Abomey-Calavi) — Abomey-Calavi, Bénin'
     },
     description: {
       en: 'Combining academic coursework with intensive independent development in systems programming, algorithmics, mathematical foundations of machine learning, and networks.',
