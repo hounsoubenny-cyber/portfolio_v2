@@ -138,8 +138,8 @@ export const TIMELINE_ITEMS: TimelineItem[] = [
       fr: 'Étudiant en Informatique & IA'
     },
     institution: {
-      en: 'IFRI-UAC (Institut de Formation et de Recherche en Informatique, Université d'Abomey-Calavi) — Abomey-Calavi, Bénin',
-      fr: 'IFRI-UAC (Institut de Formation et de Recherche en Informatique, Université d'Abomey-Calavi) — Abomey-Calavi, Bénin'
+      en: 'IFRI-UAC (Institut de Formation et de Recherche en Informatique, Université d\'Abomey-Calavi) — Abomey-Calavi, Bénin',
+      fr: 'IFRI-UAC (Institut de Formation et de Recherche en Informatique, Université d\'Abomey-Calavi) — Abomey-Calavi, Bénin'
     },
     description: {
       en: 'Combining academic coursework with intensive independent development in systems programming, algorithmics, mathematical foundations of machine learning, and networks.',
