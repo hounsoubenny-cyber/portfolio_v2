@@ -1,18 +1,14 @@
 {
-	"pid": 343248,
+	"pid": 462844,
 	"port": 3000,
 	"url": "http://localhost:3000",
 	"urls": {
 		"local": [
 			"http://localhost:3000/"
 		],
-		"network": [
-			"http://10.65.221.113:3000/"
-		],
-		"networkInterfaceNames": [
-			"wlp1s0"
-		]
+		"network": [],
+		"networkInterfaceNames": []
 	},
 	"background": false,
-	"startedAt": "2026-10-15T07:36:30.025Z"
+	"startedAt": "2026-10-16T12:49:45.687Z"
 }

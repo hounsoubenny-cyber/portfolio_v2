@@ -56,6 +56,12 @@ L'architecture repose notamment sur **FastAPI** pour l'API, **Pydantic** pour la
 
 Le backend de Mediakit peut également être compilé avec **PyInstaller**. Un workflow GitHub Actions automatise la génération des binaires pour Linux, Windows et macOS et leur publication dans les GitHub Releases.
 
+### Deuxième produit : Docukit
+
+Pour vérifier que Workbench tient sa promesse, un deuxième produit a été construit dessus : **[Docukit](/projets/docukit)**, une boîte à outils PDF et documents autour de `qpdf`, `poppler`, `tesseract` et `pandoc` (21 outils, dont l'OCR et la protection par mot de passe).
+
+Le moteur est resté le même, seul le produit a changé. Ce test a aussi permis de **durcir le socle** : signalement des jobs en échec, résultats de pipeline qui ne renvoient plus les entrées saisies, contrôle des en-têtes `Host` et `Origin` pour les serveurs locaux, et correction d'une traversée de chemin dans le service des fichiers statiques.
+
 ### Pourquoi ce projet ?
 
 Je ne voulais pas construire uniquement une interface pour FFmpeg.
@@ -114,6 +120,12 @@ Workbench provides the reusable infrastructure while Mediakit provides the produ
 The architecture uses **FastAPI** for the API, **Pydantic** for input validation and data modeling, **React + TypeScript + Vite** for the frontend, and **WebSockets** for job monitoring.
 
 Mediakit's backend can also be packaged with **PyInstaller**. A GitHub Actions workflow automates binary builds for Linux, Windows and macOS and publishes them through GitHub Releases.
+
+### Second product: Docukit
+
+To check that Workbench keeps its promise, a second product was built on top of it: **[Docukit](/projets/docukit)**, a PDF and document toolkit around `qpdf`, `poppler`, `tesseract` and `pandoc` (21 tools, including OCR and password protection).
+
+The engine stayed the same, only the product changed. The exercise also helped **harden the core**: failed jobs are now reported to the client, pipeline results no longer echo the submitted inputs, local servers check the `Host` and `Origin` headers, and a path traversal in static file serving was fixed.
 
 ### Why this project?
 
