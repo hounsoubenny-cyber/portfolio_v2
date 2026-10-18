@@ -8,7 +8,8 @@ tags: ["Tag1", "Tag2"]
 image_cover: "/images/projets/votre_image.png" # Chemin de l'image de couverture
 lien_github: "https://github.com/votre-compte/nom-du-projet" # ou null
 lien_demo: "https://votre-demo.com" # ou null
-featured: false # Mettre à true pour afficher en page d'accueil (max 3)
+featured: false # Mettre à true pour pouvoir apparaître en page d'accueil (3 affichés au maximum)
+ordre: 1 # optionnel : rang parmi les projets featured en page d'accueil (1 = premier)
 stack: ["Techno1", "Techno2", "Techno3"]
 ---
 

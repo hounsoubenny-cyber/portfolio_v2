@@ -10,6 +10,7 @@ image_cover: "/images/projets/workbench/workbench-mediakit.jpg"
 lien_github: "https://github.com/hounsoubenny-cyber/workbench"
 lien_demo: null
 featured: true
+ordre: 1
 stack: ["Python", "FastAPI", "Pydantic", "React", "TypeScript", "Vite", "WebSocket", "PyInstaller"]
 ---------------------------------------------------------------------------------------------------
 
@@ -58,7 +59,7 @@ Le backend de Mediakit peut également être compilé avec **PyInstaller**. Un w
 
 ### Deuxième produit : Docukit
 
-Pour vérifier que Workbench tient sa promesse, un deuxième produit a été construit dessus : **[Docukit](/projets/docukit)**, une boîte à outils PDF et documents autour de `qpdf`, `poppler`, `tesseract` et `pandoc` (21 outils, dont l'OCR et la protection par mot de passe).
+Pour vérifier que Workbench tient sa promesse, un deuxième produit a été construit dessus **par Claude (l'assistant IA d'Anthropic), de façon autonome** : **[Docukit](/projets/docukit)**, une boîte à outils PDF et documents autour de `qpdf`, `poppler`, `tesseract` et `pandoc` (21 outils, dont l'OCR et la protection par mot de passe).
 
 Le moteur est resté le même, seul le produit a changé. Ce test a aussi permis de **durcir le socle** : signalement des jobs en échec, résultats de pipeline qui ne renvoient plus les entrées saisies, contrôle des en-têtes `Host` et `Origin` pour les serveurs locaux, et correction d'une traversée de chemin dans le service des fichiers statiques.
 
@@ -123,7 +124,7 @@ Mediakit's backend can also be packaged with **PyInstaller**. A GitHub Actions w
 
 ### Second product: Docukit
 
-To check that Workbench keeps its promise, a second product was built on top of it: **[Docukit](/projets/docukit)**, a PDF and document toolkit around `qpdf`, `poppler`, `tesseract` and `pandoc` (21 tools, including OCR and password protection).
+To check that Workbench keeps its promise, a second product was built on top of it **by Claude (Anthropic's AI assistant), autonomously**: **[Docukit](/projets/docukit)**, a PDF and document toolkit around `qpdf`, `poppler`, `tesseract` and `pandoc` (21 tools, including OCR and password protection).
 
 The engine stayed the same, only the product changed. The exercise also helped **harden the core**: failed jobs are now reported to the client, pipeline results no longer echo the submitted inputs, local servers check the `Host` and `Origin` headers, and a path traversal in static file serving was fixed.
 

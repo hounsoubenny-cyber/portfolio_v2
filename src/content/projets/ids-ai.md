@@ -1,33 +1,37 @@
 ---
 title: "AI-Powered IDS/IPS System"
-description: "Système hybride de détection d'intrusions réseau mariant auto-encodeurs LSTM, CNN et Isolation Forests pour une inspection sous 100ms."
-date_debut: "2026-01-01"
-date_fin: null
+description: "Système de détection d'intrusions réseau combinant CNN 1D, auto-encodeur LSTM et Isolation Forest sur du trafic capturé en direct. Version publique simplifiée d'un projet plus complet."
+date_debut: "2026-01-02"
+date_fin: "2026-01-14"
 status: "terminé"
 tags: ["Deep Learning", "Cybersécurité", "Temps Réel"]
 image_cover: "/images/projets/ids-ai.png"
 lien_github: "https://github.com/hounsoubenny-cyber/ids-ai"
 lien_demo: null
 featured: false
-stack: ["TensorFlow", "PyTorch", "pcap", "Suricata", "Python", "Sockets"]
+stack: ["Python", "TensorFlow", "scikit-learn", "Optuna", "dpkt", "pypcap"]
 ---
 
 ## fr
 
-Ce système de détection et de prévention d'intrusions capture le trafic réseau en temps réel sur plusieurs interfaces réseau et le soumet à des architectures de Machine Learning pour identifier les menaces connues et inconnues.
+Ce système capture le trafic réseau en direct sur plusieurs interfaces et le soumet à plusieurs modèles de Machine Learning pour repérer les attaques connues et les comportements inhabituels.
+
+> **Version publique simplifiée.** Ce dépôt montre le cœur de la détection. Dans une version plus complète, développée dans un projet privé plus large et pas encore publié, le système agit aussi : il dialogue avec Suricata et déclenche des blocages iptables sur les adresses malveillantes.
 
 ### Architecture Technique
-* **Détection Signature & Comportementale** : Un CNN 1D classifie les signatures connues avec un haut débit, tandis qu'un auto-encodeur LSTM évalue les anomalies sur les flux de paquets non identifiés.
-* **Intégration Bas Niveau (PCAP)** : Capture brute et dissection de paquets réseaux via des sockets multithreadés en C/Python pour réduire la latence.
-* **Sursaut Actif (IPS)** : S'interface directement avec Suricata et iptables pour bannir dynamiquement les adresses IP malveillantes en cours d'attaque (< 100ms de réaction).
+* **Détection hybride** : un CNN 1D classe les signatures d'attaques connues, un auto-encodeur LSTM repère les anomalies sur les flux non identifiés, et une Isolation Forest apporte une détection d'anomalies complémentaire.
+* **Capture réseau** : paquets capturés avec pypcap et analysés avec dpkt, via des threads, sur plusieurs interfaces réseau.
+* **Objectif de latence** : moins de 100 ms par analyse de paquet (objectif annoncé dans le README du dépôt).
 
 ---
 
 ## en
 
-This intelligent Intrusion Detection and Prevention system captures real-time network traffic across multiple interfaces and pipes packets through dual ML architectures to identify attacks.
+This system captures live network traffic across multiple interfaces and passes it through several Machine Learning models to spot known attacks and unusual behavior.
+
+> **Simplified public version.** This repository shows the core of the detection. In a more complete version, developed inside a larger private project that is not published yet, the system also takes action: it talks to Suricata and triggers iptables blocks on malicious addresses.
 
 ### Technical Deep-dive
-* **Dual-Path ML Models** : A high-throughput 1D-CNN handles known attack signatures, while a deep LSTM Autoencoder performs reconstruction-based anomaly detection for zero-day exploits.
-* **Low-Level Inspections (PCAP)** : Performs raw socket capture and processing using multi-threaded Python/C bindings to avoid packet drops.
-* **Active Countermeasures (IPS)** : Communicates with Suricata alert sockets to automatically trigger iptables firewall drops on malicious IPs within 100ms.
+* **Hybrid detection** : a 1D-CNN classifies known attack signatures, an LSTM autoencoder flags anomalies in unidentified flows, and an Isolation Forest adds complementary anomaly detection.
+* **Network capture** : packets captured with pypcap and parsed with dpkt, using threads, across multiple network interfaces.
+* **Latency target** : under 100 ms per packet analysis (target stated in the repository README).

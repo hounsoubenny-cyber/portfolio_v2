@@ -23,7 +23,9 @@ export default defineConfig({
     env: {
       schema: {
         RESEND_API_KEY: envField.string({ context: 'server', access: 'secret' }),
-    CONTACT_TO_EMAIL: envField.string({ context: 'server', access: 'secret' }),
+        CONTACT_TO_EMAIL: envField.string({ context: 'server', access: 'secret' }),
+        // Optionnel : expéditeur personnalisé (domaine vérifié sur Resend)
+        CONTACT_FROM_EMAIL: envField.string({ context: 'server', access: 'secret', optional: true }),
       },
     },
 
@@ -33,9 +35,5 @@ export default defineConfig({
     },
     vite: {
       plugins: [tailwindcss()],
-    server: {
-      hmr: process.env.DISABLE_HMR !== 'true',
-      watch: process.env.DISABLE_HMR === 'true' ? null : {},
-    }
     }
 });

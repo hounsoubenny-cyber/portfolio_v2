@@ -14,6 +14,8 @@ const projetsCollection = defineCollection({
     lien_github: z.string().nullable(),
     lien_demo: z.string().nullable(),
     featured: z.boolean(),
+    // Ordre d'affichage en page d'accueil parmi les projets `featured` (1 = premier).
+    ordre: z.number().optional(),
     stack: z.array(z.string())
   })
 });

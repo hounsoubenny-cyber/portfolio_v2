@@ -1,6 +1,6 @@
 ---
 title: "Docukit"
-description: "Une boîte à outils PDF et documents (fusion, OCR, mot de passe, conversion Word) construite sur Workbench : sans terminal, et sans envoyer un seul document sur Internet."
+description: "Une boîte à outils PDF et documents (fusion, OCR, mot de passe, conversion Word) construite sur Workbench : sans terminal, et sans envoyer un seul document sur Internet. Réalisée de façon autonome par Claude (IA d'Anthropic) pour tester le framework."
 date_debut: "2026-10-14"
 date_fin: "2026-10-16"
 status: "terminé"
@@ -16,7 +16,7 @@ stack: ["Python", "FastAPI", "Pydantic", "qpdf", "Poppler", "Tesseract", "pandoc
 
 # Docukit
 
-**Docukit** est le **deuxième produit construit sur [Workbench](/projets/workbench-mediakit)**. Il rend `qpdf`, `poppler`, `tesseract` et `pandoc` utilisables sans terminal : fusionner des PDF, extraire ou supprimer des pages, protéger un document par mot de passe, lire le texte d'un scan, convertir du Markdown en Word…
+**Docukit** est le **deuxième produit construit sur [Workbench](/projets/workbench-mediakit)**, réalisé de façon autonome par Claude (l'assistant IA d'Anthropic) pour tester le framework. Il rend `qpdf`, `poppler`, `tesseract` et `pandoc` utilisables sans terminal : fusionner des PDF, extraire ou supprimer des pages, protéger un document par mot de passe, lire le texte d'un scan, convertir du Markdown en Word…
 
 Tout se passe **sur l'ordinateur de l'utilisateur**. Aucun document n'est envoyé sur Internet : c'est un argument décisif pour des factures, des contrats ou des pièces d'identité.
 
@@ -89,7 +89,7 @@ Docukit a été développé **avec Claude (l'assistant IA d'Anthropic), de faço
 
 # Docukit
 
-**Docukit** is the **second product built on [Workbench](/projets/workbench-mediakit)**. It makes `qpdf`, `poppler`, `tesseract` and `pandoc` usable without a terminal: merge PDFs, extract or delete pages, password-protect a document, read the text of a scan, convert Markdown to Word…
+**Docukit** is the **second product built on [Workbench](/projets/workbench-mediakit)**, developed autonomously by Claude (Anthropic's AI assistant) as a test of the framework. It makes `qpdf`, `poppler`, `tesseract` and `pandoc` usable without a terminal: merge PDFs, extract or delete pages, password-protect a document, read the text of a scan, convert Markdown to Word…
 
 Everything runs **on the user's own computer**. No document is ever sent over the Internet, which matters for invoices, contracts or ID documents.
 

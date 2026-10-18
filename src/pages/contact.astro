@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { CONTACT_EMAIL } from '../site';
 ---
 
 <Layout
@@ -31,7 +32,7 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Email Card -->
         <a
-          href="mailto:hounsoubenny@gmail.com"
+          href={`mailto:${CONTACT_EMAIL}`}
           class="flex items-center gap-4 p-4 rounded-2xl bg-surface border border-border card-hover group"
         >
           <span class="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
@@ -43,7 +44,7 @@ import Layout from '../layouts/Layout.astro';
           <div>
             <h3 class="text-xs font-mono uppercase font-bold text-text-main">E-mail</h3>
             <p class="text-xs sm:text-sm text-text-sub group-hover:text-primary transition-colors">
-              hounsoubenny@gmail.com
+              {CONTACT_EMAIL}
             </p>
           </div>
         </a>

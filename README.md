@@ -18,6 +18,8 @@ Ce site présente mon parcours, mes compétences techniques et mes projets (IA, 
 | Styling | [Tailwind CSS v4](https://tailwindcss.com) |
 | Contenu | Content Collections Astro (Markdown + frontmatter typé) |
 | SEO | Sitemap auto (`@astrojs/sitemap`), Open Graph, JSON-LD |
+| Backend | Route serveur `/api/contact` (Astro + adapter Cloudflare) |
+| Emails | [Resend](https://resend.com) |
 | Déploiement | Cloudflare Workers |
 
 ## Fonctionnalités
@@ -28,7 +30,8 @@ Ce site présente mon parcours, mes compétences techniques et mes projets (IA, 
 - 📝 Projets & articles de blog gérés via Markdown (Content Collections)
 - 🔍 Filtres par tag sur la page Projets
 - 🔎 SEO : sitemap, meta OG/Twitter, données structurées JSON-LD
-- ⚡ 100% statique — rapide, pas de backend requis
+- ⚡ Pages pré-générées (rapides) + une seule route serveur : le formulaire de contact
+- 📬 Formulaire de contact sécurisé : honeypot, validation serveur, rate limiting, secrets côté serveur uniquement
 
 ## Démarrer en local
 
@@ -44,11 +47,40 @@ Le site tourne alors sur `http://localhost:3000` (ou le premier port disponible)
 ### Build de production
 
 ```bash
-npm run build   # génère le site statique dans dist/
+npm run build   # génère le site (pages pré-rendues + worker) dans dist/
 npm run preview # prévisualise le build de production en local
 ```
 
-Aucune variable d'environnement n'est nécessaire — le site est 100% statique.
+### Variables d'environnement
+
+Le site s'affiche sans aucune variable. Elles ne servent qu'au formulaire de contact (`/api/contact`) :
+
+| Variable | Obligatoire | Rôle |
+|---|---|---|
+| `RESEND_API_KEY` | oui | Clé API Resend |
+| `CONTACT_TO_EMAIL` | oui | Adresse qui reçoit les messages |
+| `CONTACT_FROM_EMAIL` | non | Expéditeur, ex. `Portfolio <contact@ton-domaine.com>` (domaine vérifié sur Resend). Par défaut : `onboarding@resend.dev` |
+
+**En local** : crée un fichier `.dev.vars` à la racine (déjà ignoré par git) :
+
+```
+RESEND_API_KEY=re_xxx
+CONTACT_TO_EMAIL=toi@exemple.com
+```
+
+**En production** :
+
+```bash
+npx wrangler secret put RESEND_API_KEY
+npx wrangler secret put CONTACT_TO_EMAIL
+```
+
+### Sécurité du formulaire de contact
+
+- Honeypot anti-bot, validation des types et des longueurs, corps limité en taille
+- Refus des requêtes venant d'un autre site (contrôle de l'en-tête `Origin`)
+- Rate limiting : binding Cloudflare `CONTACT_LIMITER` (5 requêtes / 60 s / IP, voir `wrangler.jsonc`). Sans ce binding, un limiteur en mémoire prend le relais (moins fiable)
+- Les erreurs renvoyées au navigateur sont génériques ; les détails vont uniquement dans les logs (`npx wrangler tail`)
 
 ## Structure du projet
 
@@ -61,7 +93,9 @@ src/
 │   └── parcours/bio.md  # Texte de la bio (page Parcours)
 ├── data.ts               # Compétences (page Expertise) & jalons (page Parcours)
 ├── layouts/Layout.astro  # Layout global (head, nav, footer, SEO, lang/theme switch)
+├── site.ts               # Email de contact et liens sociaux (source unique)
 ├── pages/                # Une route par fichier (index, parcours, expertise, projets/, blog/, contact)
+│   └── api/contact.ts    # Seule route serveur : envoi des mails via Resend
 └── types.ts              # Types TypeScript partagés (Skill, TimelineItem)
 
 public/
@@ -86,7 +120,9 @@ npm run build
 npx wrangler deploy
 ```
 
-Le nom du déploiement (et donc le sous-domaine `*.workers.dev`) est défini dans `wrangler.toml` / `wrangler.jsonc` (`name`).
+Le nom du déploiement (et donc le sous-domaine `*.workers.dev`) est défini dans `wrangler.jsonc` (`name`).
+
+Pense à définir les secrets (voir plus haut) avant le premier déploiement, sinon le formulaire de contact renverra une erreur.
 
 ⚠️ Après tout changement de domaine final, penser à mettre à jour :
 - `site` dans `astro.config.mjs`
@@ -98,6 +134,6 @@ Code sous licence MIT. Contenu (textes, projets, articles) © Benny Samuel HOUNS
 
 ## Contact
 
-- Email : hounsoubenny.cyber@gmail.com
+- Email : hounsoubenny@gmail.com
 - GitHub : [@hounsoubenny-cyber](https://github.com/hounsoubenny-cyber)
 - LinkedIn : [Benny Samuel HOUNSOU](https://linkedin.com/in/benny-samuel-hounsou-631023249)

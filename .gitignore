@@ -141,13 +141,18 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
-<<<<<<< HEAD
-=======
 
->>>>>>> 46a9a47 (First commit for new porfolio)
+# Astro / Cloudflare : fichiers générés localement (ne pas versionner)
+.astro/
+.wrangler/
 
 # Fichiers temporaires
 *.kate-swp
 .*.kate-swp
+
+# Secrets locaux (Wrangler / dotenv) — ne jamais commit
 .dev.vars
+.dev.vars.*
 .env
+.env.*
+!.env.example

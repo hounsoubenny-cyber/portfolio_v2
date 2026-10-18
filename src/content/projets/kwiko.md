@@ -9,6 +9,7 @@ image_cover: "/images/projets/kwiko/kwiko_cover.png"
 lien_github: "https://github.com/hounsoubenny-cyber/kwiko"
 lien_demo: null
 featured: true
+ordre: 2
 stack: ["FastAPI", "React", "FAISS", "Groq", "SQLModel", "WhatsApp Cloud API"]
 ---
 

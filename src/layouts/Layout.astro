@@ -1,5 +1,6 @@
 ---
 import '../index.css';
+import { CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL } from '../site';
 
 interface Props {
   title: string;
@@ -9,6 +10,22 @@ interface Props {
 
 const { title, description, image = "/images/og-image.png" } = Astro.props;
 const pathname = Astro.url.pathname;
+
+// URL de base = `site` d'astro.config.mjs (une seule source de vérité)
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+// Facebook / LinkedIn / X exigent une URL absolue pour les images de partage
+const ogImage = new URL(image, siteUrl).href;
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Benny Samuel HOUNSOU",
+  "url": siteUrl.href,
+  "jobTitle": "Expert IA, Automatisation & Cybersécurité",
+  "address": { "@type": "PostalAddress", "addressLocality": "Cotonou", "addressCountry": "BJ" },
+  "email": CONTACT_EMAIL,
+  "sameAs": [GITHUB_URL, LINKEDIN_URL],
+};
 
 // Dynamic active link styles
 const isActive = (path: string) => {
@@ -48,38 +65,20 @@ const navItems = [
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={`${title} — Benny S. HOUNSOU`} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
+    <meta property="og:image" content={ogImage} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={`${title} — Benny S. HOUNSOU`} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={image} />
+    <meta property="twitter:image" content={ogImage} />
 
     <!-- Sitemap & Canonical -->
     <link rel="canonical" href={Astro.url} />
 
     <!-- JSON-LD Person Schema for SEO -->
-    <script type="application/ld+json" is:inline>
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Benny Samuel HOUNSOU",
-        "url": "https://benny-hounsou.vercel.app",
-        "jobTitle": "Expert IA, Automatisation & Cybersécurité",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Cotonou",
-          "addressCountry": "BJ"
-        },
-        "email": "hounsoubenny.cyber@gmail.com",
-        "sameAs": [
-          "https://github.com/hounsoubenny-cyber",
-          "https://linkedin.com/in/benny-samuel-hounsou-631023249"
-        ]
-      }
-    </script>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(personJsonLd)} />
 
     <!-- Injected Theme & Language Script (Blocking to prevent FOUC) -->
     <script is:inline>

@@ -1,6 +1,6 @@
 ---
 title: "DocClassifier AI Portal"
-description: "Portail d'intelligence documentaire fullstack combinant pipelines OCR, catégorisation automatique, authentification JWT et chiffrement Fernet."
+description: "Portail fullstack de classification de documents : extraction de texte (PDF et images), classifieur ML en stacking, authentification JWT, chiffrement Fernet et limitation de débit."
 date_debut: "2025-11-01"
 date_fin: "2025-11-30"
 status: "terminé"
@@ -9,25 +9,29 @@ image_cover: "/images/projets/doc-classifier.png"
 lien_github: "https://github.com/hounsoubenny-cyber/doc-classifier"
 lien_demo: "https://huggingface.co/spaces/hounsoubenny/doc-classifier"
 featured: false
-stack: ["FastAPI", "React", "Tesseract OCR", "Docker", "SQLModel", "Cryptography"]
+stack: ["FastAPI", "React", "EasyOCR", "XGBoost", "scikit-learn", "Cryptography", "JWT"]
 ---
 
 ## fr
 
-DocClassifier automatise le traitement, l'analyse et le tri des documents administratifs (factures, reçus, pièces d'identité) avec un focus absolu sur la sécurité et la confidentialité des fichiers.
+DocClassifier reçoit un document (PDF, image ou texte) et prédit sa catégorie avec un score de confiance, derrière une API pensée pour la sécurité et la confidentialité des fichiers.
 
-### Innovations Clés
-* **Pipeline OCR & Classification** : Extraction de texte brut avec Tesseract OCR local couplé à des classifieurs NLP pour attribuer automatiquement des étiquettes thématiques.
-* **Chiffrement Symétrique Fernet** : Tous les documents utilisateur stockés sont chiffrés à la volée avec des clés symétriques gérées de façon isolée (les clés ne touchent jamais la base de données).
-* **Robustesse d'Infrastructure** : APIs asynchrones FastAPI avec file d'attente Celery, limitation stricte du débit (rate limiting) et isolation Docker.
+### Points Clés
+* **Extraction et classification** : le texte est extrait des PDF (pdfplumber) et des images (EasyOCR), puis classé par un modèle entraîné : un stacking TF-IDF + XGBoost + Random Forest + HistGradientBoosting.
+* **Chiffrement symétrique Fernet** : les documents sont chiffrés avec des clés symétriques.
+* **API sécurisée** : authentification JWT, mots de passe hachés avec bcrypt, limitation du débit (rate limiting), CORS restreint, traitement asynchrone des fichiers.
+* **Interface React** : dépôt par glisser-déposer, résultats en direct et thème clair/sombre. L'interface est buildée puis servie avec l'API.
+* **Modèles d'images** : deux CNN distincts entraînés séparément (détection du paludisme, chats/chiens).
 
 ---
 
 ## en
 
-DocClassifier automates the processing, parsing, and categorization of administrative documents (invoices, receipts, government IDs) with an absolute focus on data privacy.
+DocClassifier takes a document (PDF, image or text) and predicts its category with a confidence score, behind an API designed for file security and privacy.
 
-### Core Architecture
-* **OCR & Classification Pipeline** : Raw text extraction using local Tesseract OCR, feeding into NLP classifiers that route documents automatically.
-* **Fernet Symmetric Cryptography** : Encrypts documents at rest; encryption keys are isolated dynamically so that database compromise cannot reveal documents.
-* **Hardened Infrastructure** : FastAPI backends with asynchronous task queues, strict rate-limiting, secure JWT authentication, and isolated Docker runtimes.
+### Key Points
+* **Extraction and classification** : text is extracted from PDFs (pdfplumber) and images (EasyOCR), then classified by a trained model: a TF-IDF + XGBoost + Random Forest + HistGradientBoosting stacking.
+* **Fernet symmetric encryption** : documents are encrypted with symmetric keys.
+* **Secure API** : JWT authentication, bcrypt-hashed passwords, rate limiting, restricted CORS, asynchronous file processing.
+* **React interface** : drag-and-drop upload, live results and light/dark theme. The interface is built, then served with the API.
+* **Image models** : two separate, independently trained CNNs (malaria detection, cats vs dogs).

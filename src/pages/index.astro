@@ -5,10 +5,15 @@ import profileImage from '../assets/images/benny_portrait_acceuil.jpg';
 
 // Fetch collection data at build time
 const allProjects = await getCollection('projets');
-const featuredProjects = allProjects.filter(p => p.data.featured).slice(0, 3);
-// Total real project count, used by the animated counter below.
-// Reflects projects shipped across the full body of work, not just what's featured here.
-const totalProjectsCount = 3;
+// Projets mis en avant : triés par `ordre` (frontmatter), puis du plus récent au plus ancien.
+const featuredProjects = allProjects
+  .filter(p => p.data.featured)
+  .sort((a, b) =>
+    (a.data.ordre ?? 999) - (b.data.ordre ?? 999) ||
+    new Date(b.data.date_debut).getTime() - new Date(a.data.date_debut).getTime())
+  .slice(0, 3);
+// Nombre réel de projets, calculé depuis la collection (plus de valeur en dur à tenir à jour).
+const totalProjectsCount = allProjects.length;
 
 const allBlog = await getCollection('blog');
 const latestBlog = allBlog

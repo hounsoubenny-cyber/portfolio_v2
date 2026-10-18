@@ -1,9 +1,9 @@
 ---
 title: "Le Prompt Injection : la faille invisible qui menace vos applications IA"
 date: "2026-08-30"
-tags: ["Cybersécurité", "IA", "LLM Security", "ContexGuard"]
+tags: ["Cybersécurité", "IA", "LLM Security", "ContexteGuard"]
 image_cover: "/images/blog/prompt_injection_guide/prompt_injection_concept.jpg"
-resume: "Comprendre le prompt injection, la menace la plus sous-estimée des applications basées sur les LLM, et comment des outils comme ContexGuard permettent de s'en protéger en temps réel."
+resume: "Comprendre le prompt injection, la menace la plus sous-estimée des applications basées sur les LLM, et comment des outils comme ContexteGuard permettent de s'en protéger en temps réel."
 temps_lecture: 8
 ---
 
@@ -29,7 +29,7 @@ Le résultat peut aller d'une simple réponse absurde à des conséquences bien 
 
 ### Les 4 grandes familles de menaces
 
-Pour bien s'en protéger, il faut d'abord bien classifier ce à quoi on fait face. Chez ContexGuard, nous distinguons quatre catégories bien précises :
+Pour bien s'en protéger, il faut d'abord bien classifier ce à quoi on fait face. Chez ContexteGuard, nous distinguons quatre catégories bien précises :
 
 ![Les 4 catégories de menaces : safe, injection, jailbreak, exfiltration](/images/blog/prompt_injection_guide/prompt_injection_categories.jpg)
 
@@ -55,15 +55,15 @@ La méthode la plus robuste combine deux couches complémentaires :
 1. **Un moteur de règles statiques** (regex, patterns connus) qui filtre instantanément — en quelques millisecondes — les attaques évidentes et déjà documentées, sans coût de calcul.
 2. **Un modèle de deep learning** (un Transformer entraîné spécifiquement sur cette tâche) qui analyse le *sens* du prompt plutôt que sa forme exacte, et qui peut donc détecter des reformulations jamais vues auparavant.
 
-C'est exactement l'architecture derrière **ContexGuard** : chaque prompt passe d'abord par l'analyseur statique. S'il ne matche aucun pattern connu, il est transmis à un Transformer maison (encodage positionnel sinusoïdal, multi-head self-attention, tokenizer BERT) qui le classe en quatre catégories — safe, injection, jailbreak, exfiltration — avec un score de confiance. Le dataset d'entraînement combine plusieurs sources publiques reconnues, enrichies par un pipeline d'augmentation bilingue français/anglais pour renforcer la robustesse face aux reformulations.
+C'est exactement l'architecture derrière **ContexteGuard** : chaque prompt passe d'abord par l'analyseur statique. S'il ne matche aucun pattern connu, il est transmis à un Transformer maison (encodage positionnel sinusoïdal, multi-head self-attention, tokenizer BERT) qui le classe en quatre catégories — safe, injection, jailbreak, exfiltration — avec un score de confiance. Le dataset d'entraînement combine plusieurs sources publiques reconnues, enrichies par un pipeline d'augmentation bilingue français/anglais pour renforcer la robustesse face aux reformulations.
 
 ### Intégrer une protection en une ligne de code
 
-L'un des principes fondamentaux de ContexGuard est que la sécurité ne doit jamais être un frein au développement. Le SDK Python permet d'intégrer une vérification complète en une seule ligne :
+L'un des principes fondamentaux de ContexteGuard est que la sécurité ne doit jamais être un frein au développement. Le SDK Python permet d'intégrer une vérification complète en une seule ligne :
 
 ```python
 if not await guard.check(prompt):
-    raise HTTPException(400, "Prompt bloqué par ContexGuard")
+    raise HTTPException(400, "Prompt bloqué par ContexteGuard")
 ```
 
 Une connexion unique au démarrage de l'application, puis un simple `check()` partout où c'est nécessaire — sans complexité additionnelle pour l'équipe de développement.
@@ -98,7 +98,7 @@ The consequences range from a simple absurd response to far more serious outcome
 
 ### The 4 major threat categories
 
-To defend against this properly, you first need a precise classification of what you're facing. At ContexGuard, we distinguish four clear categories:
+To defend against this properly, you first need a precise classification of what you're facing. At ContexteGuard, we distinguish four clear categories:
 
 ![The 4 threat categories: safe, injection, jailbreak, exfiltration](/images/blog/prompt_injection_guide/prompt_injection_categories.jpg)
 
@@ -124,15 +124,15 @@ The most robust method combines two complementary layers:
 1. **A static rule engine** (regex, known patterns) that instantly filters — in a few milliseconds — obvious, already-documented attacks, at virtually no compute cost.
 2. **A deep learning model** (a Transformer trained specifically for this task) that analyzes the *meaning* of the prompt rather than its exact wording, and can therefore catch rephrasings never seen before.
 
-This is exactly the architecture behind **ContexGuard**: every prompt first passes through the static analyzer. If it doesn't match any known pattern, it's forwarded to a custom-built Transformer (sinusoidal positional encoding, multi-head self-attention, BERT tokenizer) that classifies it into four categories — safe, injection, jailbreak, exfiltration — with a confidence score. The training dataset combines several recognized public sources, enriched by a bilingual French/English augmentation pipeline to strengthen robustness against rephrased attacks.
+This is exactly the architecture behind **ContexteGuard**: every prompt first passes through the static analyzer. If it doesn't match any known pattern, it's forwarded to a custom-built Transformer (sinusoidal positional encoding, multi-head self-attention, BERT tokenizer) that classifies it into four categories — safe, injection, jailbreak, exfiltration — with a confidence score. The training dataset combines several recognized public sources, enriched by a bilingual French/English augmentation pipeline to strengthen robustness against rephrased attacks.
 
 ### Integrating protection in one line of code
 
-One of ContexGuard's core principles is that security should never slow down development. The Python SDK allows a full check to be integrated in a single line:
+One of ContexteGuard's core principles is that security should never slow down development. The Python SDK allows a full check to be integrated in a single line:
 
 ```python
 if not await guard.check(prompt):
-    raise HTTPException(400, "Prompt blocked by ContexGuard")
+    raise HTTPException(400, "Prompt blocked by ContexteGuard")
 ```
 
 A single connection at app startup, then a simple `check()` call wherever it's needed — with no added complexity for the development team.
