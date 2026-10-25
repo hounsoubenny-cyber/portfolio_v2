@@ -136,4 +136,4 @@ Code sous licence MIT. Contenu (textes, projets, articles) © Benny Samuel HOUNS
 
 - Email : hounsoubenny@gmail.com
 - GitHub : [@hounsoubenny-cyber](https://github.com/hounsoubenny-cyber)
-- LinkedIn : [Benny Samuel HOUNSOU](https://linkedin.com/in/benny-samuel-hounsou-631023249)
+- LinkedIn : [Benny Samuel HOUNSOU](https://linkedin.com/in/benny-hounsou-00a267374)

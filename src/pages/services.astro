@@ -1,0 +1,251 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Services proposés. Un seul endroit à modifier : textes FR/EN, délais et projets-preuves.
+const services = [
+  {
+    id: 'whatsapp',
+    icon: '💬',
+    bgClass: 'bg-emerald-500/10',
+    title: { fr: 'Assistant WhatsApp IA pour PME', en: 'AI WhatsApp assistant for small businesses' },
+    description: {
+      fr: "Votre FAQ devient un assistant qui répond à vos clients 24 h sur 24 sur WhatsApp, uniquement à partir de vos informations, sans jamais inventer une réponse.",
+      en: "Your FAQ becomes an assistant that answers your customers on WhatsApp around the clock, using only your own information and never making up an answer.",
+    },
+    delivery: { fr: 'Base de FAQ, assistant, connexion WhatsApp Cloud API, tableau de bord', en: 'FAQ base, assistant, WhatsApp Cloud API connection, dashboard' },
+    delay: { fr: '5 à 10 jours', en: '5 to 10 days' },
+    proof: { href: '/projets/kwiko', fr: 'Voir le projet Kwiko', en: 'See the Kwiko project' },
+    tags: ['FastAPI', 'RAG', 'WhatsApp Cloud API'],
+  },
+  {
+    id: 'fullstack',
+    icon: '⚡',
+    bgClass: 'bg-sky-500/10',
+    title: { fr: 'Application web fullstack sécurisée', en: 'Secure fullstack web application' },
+    description: {
+      fr: "Une application complète, de l'API à l'interface : authentification, chiffrement des données sensibles, limitation de débit et déploiement prêt pour la production.",
+      en: "A complete application, from API to interface: authentication, encryption of sensitive data, rate limiting and a production-ready deployment.",
+    },
+    delivery: { fr: 'API documentée, interface React, déploiement Docker', en: 'Documented API, React interface, Docker deployment' },
+    delay: { fr: '7 à 21 jours', en: '7 to 21 days' },
+    proof: { href: '/projets/doc-classifier', fr: 'Voir DocClassifier', en: 'See DocClassifier' },
+    tags: ['FastAPI', 'React', 'JWT', 'Docker'],
+  },
+  {
+    id: 'audit',
+    icon: '🔐',
+    bgClass: 'bg-amber-500/10',
+    title: { fr: 'Audit de sécurité express', en: 'Express security review' },
+    description: {
+      fr: "Un regard extérieur sur votre API ou votre site : failles d'accès aux fichiers, authentification, exposition réseau, limitation de débit. Réalisé uniquement sur des systèmes dont vous êtes propriétaire ou pour lesquels vous m'autorisez par écrit.",
+      en: "An outside look at your API or website: file access flaws, authentication, network exposure, rate limiting. Performed only on systems you own or have authorized me in writing to review.",
+    },
+    delivery: { fr: 'Rapport PDF des failles et correctifs proposés', en: 'PDF report of findings and proposed fixes' },
+    delay: { fr: '2 à 4 jours', en: '2 to 4 days' },
+    proof: { href: '/blog/path-traversal-os-path-join', fr: "Lire l'article sur le path traversal", en: 'Read the path traversal article' },
+    tags: ['OWASP', 'FastAPI', 'Linux'],
+  },
+  {
+    id: 'ml',
+    icon: '🧠',
+    bgClass: 'bg-violet-500/10',
+    title: { fr: 'Modèle de machine learning sur mesure', en: 'Custom machine learning model' },
+    description: {
+      fr: "Classification, détection ou prédiction à partir de vos données : préparation, entraînement, évaluation honnête des résultats et mise à disposition par une API.",
+      en: "Classification, detection or prediction from your data: preparation, training, honest evaluation of results and delivery through an API.",
+    },
+    delivery: { fr: 'Notebook, modèle entraîné, API de prédiction, rapport de métriques', en: 'Notebook, trained model, prediction API, metrics report' },
+    delay: { fr: '5 à 14 jours', en: '5 to 14 days' },
+    proof: { href: '/projets/anti-phishing-ml', fr: 'Voir le détecteur de phishing', en: 'See the phishing detector' },
+    tags: ['scikit-learn', 'XGBoost', 'PyTorch'],
+  },
+  {
+    id: 'automation',
+    icon: '⚙️',
+    bgClass: 'bg-indigo-500/10',
+    title: { fr: 'Automatisation en Python', en: 'Python automation' },
+    description: {
+      fr: "Un script ou un petit outil qui remplace une tâche répétitive : fichiers, PDF, Excel, rapports, traitement de données.",
+      en: "A script or small tool that replaces a repetitive task: files, PDFs, Excel, reports, data processing.",
+    },
+    delivery: { fr: 'Script testé sur vos fichiers, mode d’emploi', en: 'Script tested on your files, usage guide' },
+    delay: { fr: '1 à 3 jours', en: '1 to 3 days' },
+    proof: { href: '/projets/workbench-mediakit', fr: 'Voir Workbench et Mediakit', en: 'See Workbench and Mediakit' },
+    tags: ['Python', 'CLI', 'Pandas'],
+  },
+  {
+    id: 'rag',
+    icon: '📚',
+    bgClass: 'bg-rose-500/10',
+    title: { fr: 'Assistant IA hors ligne sur vos documents', en: 'Offline AI assistant on your documents' },
+    description: {
+      fr: "Posez des questions à vos propres PDF et obtenez des réponses sourcées, sans qu'aucune donnée ne quitte la machine : idéal pour des documents confidentiels.",
+      en: "Ask questions about your own PDFs and get sourced answers, with no data ever leaving the machine: ideal for confidential documents.",
+    },
+    delivery: { fr: 'Application installée, index de vos documents, mode d’emploi', en: 'Installed application, index of your documents, usage guide' },
+    delay: { fr: '7 à 14 jours', en: '7 to 14 days' },
+    proof: { href: '/projets/nexus-four', fr: 'Voir NEXUS-FOUR', en: 'See NEXUS-FOUR' },
+    tags: ['RAG', 'FAISS', 'llama.cpp'],
+  },
+];
+
+const steps = [
+  {
+    fr: { title: 'On échange', text: 'Vous me décrivez votre besoin. Je pose les bonnes questions et je reviens vers vous sous 24 heures.' },
+    en: { title: "We talk", text: 'You describe your need. I ask the right questions and get back to you within 24 hours.' },
+  },
+  {
+    fr: { title: 'Devis et délai', text: 'Vous recevez un devis écrit : livrables, délai, prix et nombre de révisions.' },
+    en: { title: 'Quote and timeline', text: 'You receive a written quote: deliverables, timeline, price and number of revisions.' },
+  },
+  {
+    fr: { title: 'Développement', text: 'Je construis par étapes et je vous montre l’avancement, pour que vous puissiez corriger le tir tôt.' },
+    en: { title: 'Development', text: 'I build in stages and show you progress, so you can steer early.' },
+  },
+  {
+    fr: { title: 'Livraison testée', text: 'Je livre un résultat testé, avec une documentation claire pour que vous puissiez l’utiliser sans moi.' },
+    en: { title: 'Tested delivery', text: 'I deliver a tested result with clear documentation so you can use it without me.' },
+  },
+];
+---
+
+<Layout
+  title="Services"
+  description="Services freelance de Benny Samuel HOUNSOU : assistant WhatsApp IA pour PME, applications web fullstack sécurisées, audit de sécurité express, machine learning sur mesure et automatisation Python."
+>
+  <div class="max-w-5xl mx-auto px-6 py-12 md:py-20 flex flex-col gap-16 animate-fadeIn">
+    <!-- Header -->
+    <div class="flex flex-col gap-3">
+      <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary">
+        <span class="lang-fr">Missions freelance</span>
+        <span class="lang-en">Freelance work</span>
+      </span>
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-text-main font-heading">
+        <span class="lang-fr">Ce que je peux construire pour vous</span>
+        <span class="lang-en">What I can build for you</span>
+      </h1>
+      <p class="text-base text-text-sub max-w-2xl font-sans">
+        <span class="lang-fr">Des produits IA et web complets, de l'API à l'interface, testés avant livraison. Chaque service s'appuie sur un projet réel que vous pouvez inspecter.</span>
+        <span class="lang-en">Complete AI and web products, from API to interface, tested before delivery. Each service is backed by a real project you can inspect.</span>
+      </p>
+      <div class="flex flex-wrap gap-3 mt-2">
+        <a
+          href="/contact"
+          class="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white hover:bg-primary-hover shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 btn-hover"
+        >
+          <span class="lang-fr">Demander un devis</span>
+          <span class="lang-en">Request a quote</span>
+        </a>
+        <a
+          href="/projets"
+          class="inline-flex items-center gap-2 rounded-xl border border-border bg-surface px-6 py-3 text-sm font-bold text-text-main hover:bg-border/40 transition-colors btn-hover"
+        >
+          <span class="lang-fr">Voir mes projets</span>
+          <span class="lang-en">View my projects</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Services grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {services.map(service => (
+        <div class="bg-surface border border-border rounded-3xl p-6 md:p-8 flex flex-col justify-between gap-6 shadow-sm card-hover">
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3">
+              <span class={`h-12 w-12 rounded-2xl ${service.bgClass} flex items-center justify-center text-xl`}>
+                {service.icon}
+              </span>
+              <h2 class="text-lg md:text-xl font-bold text-text-main font-heading">
+                <span class="lang-fr">{service.title.fr}</span>
+                <span class="lang-en">{service.title.en}</span>
+              </h2>
+            </div>
+            <p class="text-sm text-text-sub leading-relaxed font-sans">
+              <span class="lang-fr">{service.description.fr}</span>
+              <span class="lang-en">{service.description.en}</span>
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-2 border-t border-border pt-4 text-sm font-sans">
+            <p>
+              <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-text-main">
+                <span class="lang-fr">Livrables</span>
+                <span class="lang-en">Deliverables</span>
+              </span>
+              <span class="block text-text-sub">
+                <span class="lang-fr">{service.delivery.fr}</span>
+                <span class="lang-en">{service.delivery.en}</span>
+              </span>
+            </p>
+            <p>
+              <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-text-main">
+                <span class="lang-fr">Délai indicatif</span>
+                <span class="lang-en">Typical timeline</span>
+              </span>
+              <span class="block text-text-sub">
+                <span class="lang-fr">{service.delay.fr}</span>
+                <span class="lang-en">{service.delay.en}</span>
+              </span>
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <div class="flex flex-wrap gap-1.5">
+              {service.tags.map(tag => (
+                <span class="text-xs font-mono bg-border/40 text-text-main px-2.5 py-0.5 rounded-md font-medium">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <a href={service.proof.href} class="text-sm font-bold text-primary hover:underline">
+              <span class="lang-fr">{service.proof.fr} →</span>
+              <span class="lang-en">{service.proof.en} →</span>
+            </a>
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <!-- Process -->
+    <section class="flex flex-col gap-8">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-text-main font-heading">
+        <span class="lang-fr">Comment ça se passe</span>
+        <span class="lang-en">How it works</span>
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        {steps.map((step, index) => (
+          <div class="bg-surface border border-border rounded-2xl p-5 flex flex-col gap-2 shadow-sm">
+            <span class="font-mono text-xs font-bold text-primary">0{index + 1}</span>
+            <h3 class="text-base font-bold text-text-main font-heading">
+              <span class="lang-fr">{step.fr.title}</span>
+              <span class="lang-en">{step.en.title}</span>
+            </h3>
+            <p class="text-xs md:text-sm text-text-sub leading-relaxed font-sans">
+              <span class="lang-fr">{step.fr.text}</span>
+              <span class="lang-en">{step.en.text}</span>
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="border-t border-border pt-12 text-center flex flex-col items-center gap-4">
+      <h3 class="font-heading text-xl font-bold text-text-main">
+        <span class="lang-fr">Un projet en tête ?</span>
+        <span class="lang-en">Have a project in mind?</span>
+      </h3>
+      <p class="text-sm text-text-sub max-w-md font-sans">
+        <span class="lang-fr">Décrivez-moi votre besoin en quelques lignes. Je vous réponds sous 24 heures avec une première piste.</span>
+        <span class="lang-en">Describe your need in a few lines. I will reply within 24 hours with a first approach.</span>
+      </p>
+      <a
+        href="/contact"
+        class="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white hover:bg-primary-hover shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 btn-hover"
+      >
+        <span class="lang-fr">Me contacter</span>
+        <span class="lang-en">Contact me</span>
+      </a>
+    </section>
+  </div>
+</Layout>

@@ -5,4 +5,4 @@
 export const CONTACT_EMAIL = 'hounsoubenny@gmail.com';
 
 export const GITHUB_URL = 'https://github.com/hounsoubenny-cyber';
-export const LINKEDIN_URL = 'https://linkedin.com/in/benny-samuel-hounsou-631023249';
+export const LINKEDIN_URL = 'https://linkedin.com/in/benny-hounsou-00a267374';

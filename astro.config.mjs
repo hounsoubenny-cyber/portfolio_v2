@@ -1,7 +1,7 @@
 import { defineConfig, envField } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
-import cloudflare from '@astrojs/cloudflare';
+//import cloudflare from '@astrojs/cloudflare';
 
 // ⚠️ A remplacer par ton vrai domaine une fois déployé.
 // Nécessaire pour que le sitemap et les URLs canoniques/OG soient corrects.
@@ -15,7 +15,7 @@ export default defineConfig({
   publicDir: './public',
 
     // ☁️ Permet d'exécuter /api/contact côté serveur sur Cloudflare
-    adapter: cloudflare(),
+    //adapter: cloudflare(),
 
     integrations: [sitemap()],
 
