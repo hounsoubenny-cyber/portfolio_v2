@@ -20,10 +20,10 @@ export const SKILLS: Skill[] = [
       fr: 'Architectures deep learning (Transformers, GPT) implémentées de A à Z avec PyTorch, machine learning classique poussé en production avec scikit-learn.'
     },
     list: [
-      { name: { fr: 'PyTorch', en: 'PyTorch' }, level: 'Advanced', percentage: 88 },
-      { name: { fr: 'scikit-learn', en: 'scikit-learn' }, level: 'Expert', percentage: 95 },
-      { name: { fr: 'NumPy / Pandas', en: 'NumPy / Pandas' }, level: 'Expert', percentage: 92 },
-      { name: { fr: 'Transformers / GPT', en: 'Transformers / GPT' }, level: 'Advanced', percentage: 82 }
+      { name: { fr: 'PyTorch', en: 'PyTorch' }, level: 'Intermediate', percentage: 60 },
+      { name: { fr: 'scikit-learn', en: 'scikit-learn' }, level: 'Proficient', percentage: 80 },
+      { name: { fr: 'NumPy / Pandas', en: 'NumPy / Pandas' }, level: 'Proficient', percentage: 80 },
+      { name: { fr: 'Transformers / GPT', en: 'Transformers / GPT' }, level: 'Intermediate', percentage: 60 }
     ],
     tags: ['PyTorch', 'scikit-learn', 'NumPy', 'Pandas', 'Transformers', 'CNN', 'LSTM', 'ONNX']
   },
@@ -41,12 +41,12 @@ export const SKILLS: Skill[] = [
       fr: 'Python comme outil principal, JavaScript/React pour les interfaces modernes, complétés par C et Cython pour la performance bas niveau.'
     },
     list: [
-      { name: { fr: 'Python', en: 'Python' }, level: 'Expert', percentage: 96 },
-      { name: { fr: 'JavaScript / React', en: 'JavaScript / React' }, level: 'Expert', percentage: 90 },
-      { name: { fr: 'HTML / CSS', en: 'HTML / CSS' }, level: 'Expert', percentage: 88 },
-      { name: { fr: 'SQL (+ via Python)', en: 'SQL (+ via Python)' }, level: 'Expert', percentage: 90 },
-      { name: { fr: 'Cython', en: 'Cython' }, level: 'Advanced', percentage: 78 },
-      { name: { fr: 'C', en: 'C' }, level: 'Advanced', percentage: 75 }
+      { name: { fr: 'Python', en: 'Python' }, level: 'Proficient', percentage: 80 },
+      { name: { fr: 'JavaScript / React', en: 'JavaScript / React' }, level: 'Intermediate', percentage: 60 },
+      { name: { fr: 'HTML / CSS', en: 'HTML / CSS' }, level: 'Intermediate', percentage: 60 },
+      { name: { fr: 'SQL (+ via Python)', en: 'SQL (+ via Python)' }, level: 'Intermediate', percentage: 60 },
+      { name: { fr: 'Cython', en: 'Cython' }, level: 'Beginner', percentage: 40 },
+      { name: { fr: 'C', en: 'C' }, level: 'Proficient', percentage: 80 }
     ],
     tags: ['Python', 'JavaScript', 'React', 'HTML/CSS', 'SQL', 'Cython', 'C']
   },
@@ -60,13 +60,13 @@ export const SKILLS: Skill[] = [
     colorClass: 'text-emerald-500',
     bgClass: 'bg-emerald-500/10',
     description: {
-      en: 'High-performance async APIs with FastAPI, React frontends built and served from a single backend, and web-to-desktop packaging.',
-      fr: 'APIs asynchrones haute performance avec FastAPI, frontends React buildés et servis par le backend, et portage d\'applications web en desktop.'
+      en: 'Async APIs with FastAPI, React frontends built and served from a single backend, and web-to-desktop packaging.',
+      fr: 'APIs asynchrones avec FastAPI, frontends React buildés et servis par le backend, et portage d\'applications web en desktop.'
     },
     list: [
-      { name: { fr: 'FastAPI (API & WebSocket)', en: 'FastAPI (API & WebSocket)' }, level: 'Expert', percentage: 94 },
-      { name: { fr: 'React (build servi par backend)', en: 'React (build served by backend)' }, level: 'Expert', percentage: 90 },
-      { name: { fr: 'Web → Desktop (PyWebView)', en: 'Web → Desktop (PyWebView)' }, level: 'Advanced', percentage: 80 }
+      { name: { fr: 'FastAPI (API & WebSocket)', en: 'FastAPI (API & WebSocket)' }, level: 'Proficient', percentage: 80 },
+      { name: { fr: 'React (build servi par backend)', en: 'React (build served by backend)' }, level: 'Intermediate', percentage: 60 },
+      { name: { fr: 'Web → Desktop (PyWebView)', en: 'Web → Desktop (PyWebView)' }, level: 'Intermediate', percentage: 60 }
     ],
     tags: ['FastAPI', 'React', 'WebSocket', 'PyWebView', 'PyInstaller', 'Docker', 'SQLModel']
   },
@@ -84,17 +84,17 @@ export const SKILLS: Skill[] = [
       fr: 'Outils défensifs augmentés par l\'IA — IDS/IPS, anti-phishing, sandbox, scanner de vulnérabilités — sur des fondations Linux et sécurité web solides.'
     },
     list: [
-      { name: { fr: 'Apps cyber augmentées IA', en: 'AI-Augmented Cyber Apps' }, level: 'Expert', percentage: 93 },
-      { name: { fr: 'Linux & Bash', en: 'Linux & Bash' }, level: 'Advanced', percentage: 85 },
-      { name: { fr: 'Vulnérabilités web (OWASP)', en: 'Web Vulnerabilities (OWASP)' }, level: 'Advanced', percentage: 78 }
+      { name: { fr: 'Apps cyber augmentées IA', en: 'AI-Augmented Cyber Apps' }, level: 'Intermediate', percentage: 60 },
+      { name: { fr: 'Linux & Bash', en: 'Linux & Bash' }, level: 'Intermediate', percentage: 60 },
+      { name: { fr: 'Vulnérabilités web (OWASP)', en: 'Web Vulnerabilities (OWASP)' }, level: 'Intermediate', percentage: 60 }
     ],
     tags: ['IDS/IPS', 'Anti-Phishing', 'Sandbox', 'Scanner Vulns', 'Linux', 'Bash', 'OWASP']
   },
   {
     id: 'programmation',
     category: {
-      en: 'Advanced Programming',
-      fr: 'Programmation Avancée'
+      en: 'Async, Concurrency & OOP',
+      fr: 'Async, Concurrence & POO'
     },
     icon: '⚙',
     colorClass: 'text-sky-500',
@@ -104,10 +104,10 @@ export const SKILLS: Skill[] = [
       fr: 'Programmation asynchrone avec asyncio, multithreading/multiprocessing, et conception orientée objet et classique rigoureuse.'
     },
     list: [
-      { name: { fr: 'Asyncio (asynchrone)', en: 'Asyncio (async)' }, level: 'Expert', percentage: 93 },
-      { name: { fr: 'Multithreading / Multiprocessing', en: 'Multithreading / Multiprocessing' }, level: 'Expert', percentage: 90 },
-      { name: { fr: 'Programmation Orientée Objet', en: 'Object-Oriented Programming' }, level: 'Expert', percentage: 92 },
-      { name: { fr: 'Programmation classique', en: 'Classical Programming' }, level: 'Expert', percentage: 92 }
+      { name: { fr: 'Asyncio (asynchrone)', en: 'Asyncio (async)' }, level: 'Proficient', percentage: 80 },
+      { name: { fr: 'Multithreading / Multiprocessing', en: 'Multithreading / Multiprocessing' }, level: 'Intermediate', percentage: 60 },
+      { name: { fr: 'Programmation Orientée Objet', en: 'Object-Oriented Programming' }, level: 'Proficient', percentage: 80 },
+      { name: { fr: 'Programmation classique', en: 'Classical Programming' }, level: 'Proficient', percentage: 80 }
     ],
     tags: ['asyncio', 'Threading', 'Multiprocessing', 'IPC', 'OOP', 'Design Patterns']
   }

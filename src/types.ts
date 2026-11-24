@@ -19,7 +19,7 @@ export interface Skill {
       en: string;
       fr: string;
     };
-    level: string; // e.g. "Expert", "Advanced", "Intermediate"
+    level: string; // "Proficient" | "Intermediate" | "Beginner"
     percentage: number;
   }[];
   tags: string[];

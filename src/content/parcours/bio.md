@@ -13,7 +13,7 @@ J'ai choisi d'apprendre en autodidacte, armé de détermination plus que de racc
 
 Mon environnement de travail reflète cette exigence : Linux (Fedora) au quotidien, Spyder et VSCodium comme éditeurs. Claude et DeepSeek m'accompagnent comme partenaires d'apprentissage — ils m'aident à acquérir de nouvelles compétences, à pratiquer plus vite, et à réduire les tâches répétitives pour me concentrer sur l'essentiel : la conception.
 
-Mon objectif : devenir **Ingénieur de Recherche en IA**, tout en restant l'expert qu'on appelle pour automatiser, développer un système complexe ou sécuriser une application — du premier prototype à la plateforme complète.
+Mon objectif : devenir **Ingénieur de Recherche en IA**, tout en continuant à automatiser, développer des systèmes complexes et sécuriser des applications — du premier prototype à la plateforme complète.
 
 </div>
 

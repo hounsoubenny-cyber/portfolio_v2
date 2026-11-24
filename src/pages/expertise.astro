@@ -4,7 +4,7 @@ import { SKILLS } from '../data.ts';
 ---
 
 <Layout 
-  title="Mon Expertise" 
+  title="Mes Compétences" 
   description="Découvrez les compétences techniques de Benny Samuel HOUNSOU : Modèles de Deep Learning (PyTorch, TensorFlow), Sécurité Réseau, Développement d'API asynchrones (FastAPI) et architectures Web."
 >
   <div class="max-w-5xl mx-auto px-6 py-12 md:py-20 flex flex-col gap-16 animate-fadeIn">
@@ -15,12 +15,12 @@ import { SKILLS } from '../data.ts';
         <span class="lang-en">Skills & Technologies</span>
       </span>
       <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-text-main font-heading">
-        <span class="lang-fr">Mes Domaines d'Expertise</span>
-        <span class="lang-en">My Fields of Expertise</span>
+        <span class="lang-fr">Mes Compétences</span>
+        <span class="lang-en">My Skills</span>
       </h1>
       <p class="text-base text-text-sub max-w-2xl font-sans">
-        <span class="lang-fr">Une maîtrise approfondie de l'apprentissage automatique, de la programmation système et de la conception logicielle. Mes solutions sont pensées pour être autonomes, sécurisées et performantes.</span>
-        <span class="lang-en">An in-depth mastery of machine learning, systems programming, and software design. My solutions are built to be autonomous, secure, and fast.</span>
+        <span class="lang-fr">Je travaille sur l'apprentissage automatique, la programmation système et la conception logicielle. Mes projets visent à être autonomes, sécurisés et performants.</span>
+        <span class="lang-en">I work on machine learning, systems programming, and software design. My projects aim to be autonomous, secure, and fast.</span>
       </p>
     </div>
 
@@ -57,8 +57,8 @@ import { SKILLS } from '../data.ts';
           <span class="lang-en">Fullstack Architectures</span>
         </h3>
         <p class="text-xs md:text-sm text-text-sub leading-relaxed font-sans">
-          <span class="lang-fr">APIs asynchrones ultra-rapides sous FastAPI, conception de schémas de données SQL/NoSQL robustes et interfaces utilisateurs dynamiques.</span>
-          <span class="lang-en">High-performance asynchronous APIs using FastAPI, robust SQL/NoSQL data schema design, and dynamic user interfaces.</span>
+          <span class="lang-fr">APIs asynchrones sous FastAPI, conception de schémas de données SQL/NoSQL et interfaces utilisateurs dynamiques.</span>
+          <span class="lang-en">Asynchronous APIs using FastAPI, SQL/NoSQL data schema design, and dynamic user interfaces.</span>
         </p>
       </div>
     </section>
@@ -94,20 +94,20 @@ import { SKILLS } from '../data.ts';
                 </span>
                 <div class="flex items-center gap-3">
                   <span class="text-[10px] font-mono font-bold text-primary bg-primary/5 dark:bg-primary/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                    {skill.level === 'Expert' ? (
+                    {skill.level === 'Proficient' ? (
                       <>
-                        <span class="lang-fr">Expert</span>
-                        <span class="lang-en">Expert</span>
+                        <span class="lang-fr">À l'aise</span>
+                        <span class="lang-en">Proficient</span>
                       </>
-                    ) : skill.level === 'Advanced' ? (
-                      <>
-                        <span class="lang-fr">Avancé</span>
-                        <span class="lang-en">Advanced</span>
-                      </>
-                    ) : (
+                    ) : skill.level === 'Intermediate' ? (
                       <>
                         <span class="lang-fr">Intermédiaire</span>
                         <span class="lang-en">Intermediate</span>
+                      </>
+                    ) : (
+                      <>
+                        <span class="lang-fr">Notions</span>
+                        <span class="lang-en">Basics</span>
                       </>
                     )}
                   </span>
